@@ -1,7 +1,6 @@
 .container-number-pages{
     position: sticky;
     width: 100%;
-    /* z-index: 100; */
     bottom: 0;
     left: 0;
     display: flex;
@@ -65,5 +64,5 @@
     position: sticky;
     right: -30px;
     background-color: #eceef1 !important;
-    z-index: 101;
+    z-index: 1;
 }

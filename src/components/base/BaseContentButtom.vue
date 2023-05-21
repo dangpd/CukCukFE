@@ -13,8 +13,7 @@
                     <div class="list-pages">
                         Trang &ensp;
                         <span style="width: 60px">
-                            <BaseInput v-model="pageChoice" @keyboard="changeNumberPage"
-                                @onBlur="blurTextSearchNumberPage" />
+                            <BaseInput v-model="pageChoice" />
                         </span>
                         &ensp;trên {{ totalPage }}
                     </div>
@@ -73,11 +72,30 @@ export default {
     },
     methods: {
         /**
+         * Lấy trang
+         * @param {*} pagePosition 
+         */
+        getPage(pagePosition) {
+            if (pagePosition <= this.totalPage && pagePosition >= 1) {
+                this.pageChoice = pagePosition
+                this.pageChoiceOld = pagePosition
+                this.$emit('getDataNumberTable', {
+                    pageNumber: this.pageChoice,
+                    pageSize: this.pageSize,
+                });
+            }
+            else {
+                this.pageChoice = this.pageChoiceOld
+            }
+        },
+
+        /**
          * Blur text search number page
          */
         blurTextSearchNumberPage(data) {
             try {
                 if (data) {
+                    console.log(data.modelValue);
                     this.pageChoice = data.modelValue
                     this.pageChoiceOld = data.modelValue
                     this.$emit('getDataNumberTable', {
@@ -114,23 +132,24 @@ export default {
                 console.log(error)
             }
         },
-        getValue() {
-            // if (dataValue.val && dataValue.fieldName) {
-            //     this.pageNumber = []; // Khỏi tạo lại danh sách số trang
-            //     this.pageSize = dataValue.val; // gán kích thước một trang
-            //     this.totalPage = parseInt(this.totalCount / this.pageSize);
-            //     if (this.totalCount % dataValue.val != 0) this.totalPage++;
-
-            // this.pageNumber = pageNumberShow
+    },
+    watch: {
+        pageSize(newVal) {
+            this.pageSize = newVal;
             this.$emit('getDataNumberTable', {
                 pageNumber: this.pageChoice,
                 pageSize: this.pageSize,
             });
-            this.pageChoiceOld = this.pageChoice
-            // }
         },
-    },
-    watch: {
+
+        pageChoice(newVal) {
+            console.log(newVal);
+            this.pageChoice = newVal;
+            this.$emit('getDataNumberTable', {
+                pageNumber: this.pageChoice,
+                pageSize: this.pageSize,
+            });
+        }
     }
 }
 </script>

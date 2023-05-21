@@ -5,7 +5,7 @@ class Unit {
      * @returns danh sách
      */
     getAll() {
-        let UrlMain = `${process.env.VUE_APP_URL_API}Materials`;
+        let UrlMain = `${process.env.VUE_APP_URL_API}Units`;
         return UrlMain;
     }
 
@@ -28,8 +28,8 @@ class Unit {
      * @param {*} sort 
      * @returns danh sách 
      */
-    filterAndPaging(key = '', pageSize, pageNumber, sort = '') {
-        return `${this.getAll()}//Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
+    filterAndPaging(pageSize, pageNumber, sort = '') {
+        return `${this.getAll()}/Filter?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
     }
 
     /**

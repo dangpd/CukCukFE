@@ -28,8 +28,8 @@ class Material {
      * @param {*} sort 
      * @returns danh sách 
      */
-    filterAndPaging(key = '', pageSize, pageNumber, sort = '') {
-        return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
+    filterAndPaging(pageSize, pageNumber, sort = '') {
+        return `${this.getAll()}/Filter?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
     }
 
     /**

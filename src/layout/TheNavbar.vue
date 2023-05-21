@@ -251,7 +251,7 @@ nav {
   background-color: #fff;
   overflow-y: auto;
   box-shadow: rgb(38, 43, 48) 1px 2px 5px;
-  z-index: 1;
+  z-index: 10;
 }
 
 .itemsubmenu {

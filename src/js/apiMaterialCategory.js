@@ -5,7 +5,7 @@ class MaterialCategory {
      * @returns danh sách
      */
     getAll() {
-        let UrlMain = `${process.env.VUE_APP_URL_API}Materials`;
+        let UrlMain = `${process.env.VUE_APP_URL_API}MaterialCategorys`;
         return UrlMain;
     }
 
@@ -29,7 +29,7 @@ class MaterialCategory {
      * @returns danh sách 
      */
     filterAndPaging(key = '', pageSize, pageNumber, sort = '') {
-        return `${this.getAll()}//Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
+        return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
     }
 
     /**

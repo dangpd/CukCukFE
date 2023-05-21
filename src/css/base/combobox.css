@@ -179,7 +179,7 @@ p {
     width: 12px;
     transform: rotate(45deg);
     /* transform: translateX(-50%); */
-    z-index: 0;
+    z-index: 1;
 }
 
 .error-input-content {
@@ -214,7 +214,7 @@ p {
     width: 12px;
     transform: rotate(45deg);
     /* transform: translateX(-50%); */
-    z-index: 0;
+    z-index: 1;
 }
 
 .select-box-title {
@@ -296,6 +296,18 @@ p {
 
 .selectbox__data {
     width: 200px;
+    height: 120px;
+    position: absolute;
+    top: -185px;
+    background-color: #019160;
+    border-radius: 2px;
+    flex-direction: column;
+    width: 100%;
+    box-shadow: 0 0 6px #ccc;
+}
+
+.selectbox__data__down{
+    width: 150px;
     height: 120px;
     position: absolute;
     top: -185px;

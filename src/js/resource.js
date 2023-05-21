@@ -151,6 +151,32 @@ const Resource = {
     EN: {
         errorMsg: "Error! Please contact to MiSa for help!",
         errorValidate: "Data not validate!"
+    },
+
+    // Loại form
+    TYPE_FORM: {
+        ADD: 'add',
+        UPDATE: 'update',
+        DUPLICATE: 'duplicate',
+    },
+
+    ERROR_VALIDATE_FE: {
+        UnitNameNotEmpty: "Tên đợn vị tính không được bỏ trống",
+        StockCodeNotEmpty: 'Mã kho không được bỏ trống',
+        StockNameNotEmpty: 'Tên kho không được bỏ trống',
+        MaterialNameNotEmpty: 'Tên nguyên vật liệu không được bỏ trống',
+        MaterialCodeNotEmpty: 'Mã nguyên vật liệu không được bỏ trống',
+        UnitIDNotEmpty: 'Đơn vị tính không được bỏ trống',
+        DuplicateUnit: 'Đơn vị chuyển đổi không được trùng với đơn vị chính',
+        DuplicateConversionUnitMaterial: 'Đơn vị tính không được trùng với đơn vị chuyển đổi',
+        DuplicateConversionUnit: 'Đơn vị chuyển đổi không được trùng nhau',
+        ConversionUnitNotEmpty: 'Thông tin đơn vị chuyển đổi không được bỏ trống',
+        SelectMaterialDelete: 'Vui lòng chọn nguyên vật liệu muốn xóa',
+        QuestionDeleteMaterial: 'Bạn có chắc chắn muốn xóa nguyên vật liệu',
+        DeleteSuccess: 'Xóa thành công',
+        DeleteFail: 'Xóa thất bại',
+        RequireChoiceMaterial: 'Vui lòng chọn nguyên vật liệu để thực hiện chức năng'
     }
+
 }
 export default Resource

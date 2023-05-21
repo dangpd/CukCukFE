@@ -2,9 +2,9 @@
     <div class="filter_search">
         <BaseButton :val="filterSelectedShow" v-click-out-side="hideBoxFilter" @click="setShowBoxFilter" />
         <BaseInput class="filter_input" v-model="valueSearch" @keyup="onKeyUp" @change="onChange" />
-        <div class="list_filter" v-if="showBoxFilter" >
+        <div class="list_filter" v-if="showBoxFilter">
             <div v-for="(itemFilter, index) in listFilterShow" :key="index" class="item_filter"
-                @click="() => setFilterSelected(itemFilter)" >
+                @click="() => setFilterSelected(itemFilter)">
                 <div class="filter_selected" :class="{ 'filter_selected_background': itemFilter.value == filterSelected }">
                 </div>
                 {{ itemFilter.show }}
@@ -61,7 +61,7 @@ export default {
         setFilterSelected(filter) {
             this.filterSelected = filter.value;
             this.filterSelectedShow = filter.showValue;
-            this.$emit('changeFilter', { filterType: filter.value, filterVal: this.valueSearch, field: this.field})
+            this.$emit('changeFilter', { filterType: filter.value, filterVal: this.valueSearch, field: this.field })
         },
 
         /**
@@ -77,7 +77,7 @@ export default {
         hideBoxFilter() {
             this.showBoxFilter = false
         },
-        
+
         /**
          * Lấy dữ liệu từ input trong form
          */
@@ -112,7 +112,7 @@ export default {
          * Sự kiện khi onchange
          */
         onChange() {
-            this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field})
+            this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
         }
     },
     created() {
@@ -124,6 +124,19 @@ export default {
         }
         this.filterSelected = this.listFilterShow[0].value
         this.filterSelectedShow = this.listFilterShow[0].showValue
+    },
+    watch: {
+        valueSearch(newVal) {
+            this.valueSearch = newVal;
+            console.log(newVal);
+            if(newVal == null){
+                this.valueSearch = "";
+            }
+            clearTimeout(this.setSearchTime);
+            this.setSearchTime = setTimeout(async () => {
+                this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
+            }, 600);
+        }
     }
 }
 </script>
