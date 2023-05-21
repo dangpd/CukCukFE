@@ -26,7 +26,6 @@ export default {
     props: {
         type: String, // loại tìm kiếm
         field: String, // Trường cần search Server
-        addition: String, // ADD, OR nối chuỗi search
     },
     data() {
         return {
@@ -62,7 +61,7 @@ export default {
         setFilterSelected(filter) {
             this.filterSelected = filter.value;
             this.filterSelectedShow = filter.showValue;
-            this.$emit('changeFilter', { filterType: filter.value, filterVal: this.valueSearch, field: this.field, addition: this.addition })
+            this.$emit('changeFilter', { filterType: filter.value, filterVal: this.valueSearch, field: this.field})
         },
 
         /**
@@ -87,11 +86,11 @@ export default {
                 clearTimeout(this.setSearchTime); // clear timeout
                 // Đặt thời gian chờ khi người dùng nhập
                 this.setSearchTime = setTimeout(async () => {
-                    this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field, addition: this.addition })
-                }, 800);
+                    this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
+                }, 600);
             } else {
                 clearTimeout(this.setSearchTime); // clear timeout
-                this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field, addition: this.addition })
+                this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
             }
         },
 
@@ -101,7 +100,7 @@ export default {
         onKeyUp(valueKeyUp) {
             switch (valueKeyUp.keyCode) {
                 case 13: // Enter
-                    this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field, addition: this.addition })
+                    this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
                     break;
 
                 default:
@@ -113,7 +112,7 @@ export default {
          * Sự kiện khi onchange
          */
         onChange() {
-            this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field, addition: this.addition })
+            this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field})
         }
     },
     created() {

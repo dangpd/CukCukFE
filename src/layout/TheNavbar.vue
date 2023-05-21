@@ -63,40 +63,26 @@
         <div class="background_image icon itemsubmenu"></div>
         NGUYÊN VẬT LIỆU
       </div>
-      <router-link to="/" class="submenu-item">
-        <div class="itemtext">
+      <div class="submenu-item">
+        <div class="itemtext" @click="clickMaterial">
           Nguyên vật liệu
         </div>
-      </router-link>
-      <router-link to="/materialCategory" class="submenu-item">
-        <div class="itemtext">
+      </div>
+      <div class="submenu-item">
+        <div class="itemtext" @click="clickMaterialCategory">
           Nhóm nguyên vật liệu
         </div>
-      </router-link>
-      <router-link to="/stock" class="submenu-item">
-        <div class="itemtext">
+      </div>
+      <div class="submenu-item">
+        <div class="itemtext" @click="clickStock">
           Kho
         </div>
-      </router-link>
-      <router-link to="/unit" class="submenu-item">
-        <div class="itemtext">
+      </div>
+      <div class="submenu-item">
+        <div class="itemtext" @click="clickUnit">
           Đơn vị tính
         </div>
-      </router-link>
-      <!-- <div class="submenu-item" @click="showFormMaterialCategory">
-        <div class="itemtext">
-          Nhóm nguyên vật liệu
-        </div>
       </div>
-      <div class="submenu-item" @click="showFormStock">
-        <div class="itemtext">
-          Kho
-        </div>
-      </div>
-      <div class="submenu-item" @click="showFormUnit">
-        <div class="itemtext">
-          Đơn vị tính</div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -116,6 +102,26 @@ export default {
     },
     showFormMaterial() {
     },
+    clickMaterial(){
+      this.$router.push('/');
+      this.showMenu = false;
+    },
+
+    clickMaterialCategory(){
+      this.$router.push('/materialCategory');
+      this.showMenu = false;
+    },
+
+    clickStock(){
+      this.$router.push('/stock');
+      this.showMenu = false;
+    },
+
+    clickUnit(){
+      this.$router.push('/unit');
+      this.showMenu = false;
+    }
+    
   },
   data() {
     return {
