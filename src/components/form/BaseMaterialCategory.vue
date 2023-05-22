@@ -15,7 +15,7 @@ export default {
     components: { BaseContentTitle, BaseFunction },
     data() {
         return{
-            titleF: Resource.TextVi.TitleContent.MaterialCategory
+            titleF: Resource.TitleContent.MaterialCategory
         }
     },
     methods: {

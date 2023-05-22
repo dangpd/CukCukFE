@@ -1,0 +1,130 @@
+.m-toast-box {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    /* background-color: blanchedalmond; */
+    z-index: 40;
+}
+
+.m-toast-box .m-toast-item {
+    /* height: 48px; */
+    /* background-color: #FFCECE; */
+    border-radius: 4px;
+    color: #000;
+    display: flex;
+    padding: 16px 8px 16px 16px;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    /* width: 300px; */
+    box-shadow: rgb(38, 43, 48) 1px 2px 5px;
+    background-color: #FFFFFF;
+
+}
+
+.m-toast-box .m-toast-item .m-toast-icon {
+    width: 24px;
+    height: 24px;
+    padding-right: 8px;
+}
+
+.m-toast-background {
+    background-image: url(../../assets/Image/Sprites.64af8f61.svg);
+}
+
+.t-icon-error {
+    background-position: -536px -144px;
+}
+
+.t-icon-warning {
+    background-position: -592px -144px;
+}
+
+.t-icon-success {
+    background-position: -1599px -256px;
+}
+.text-green{
+    color: #39AC66;
+}
+.text-yellow{
+    color: #FF8233;
+}
+.text-red{
+    color: #EB3333;
+}
+.m-toast-box .m-toast-item .m-toast-text {
+    margin: 0 16px 0 8px;
+    font-size: 14px;
+}
+
+.m-toast-box .m-toast-item .m-toast-close {
+    /* margin-left: 92px; */
+    height: 16px;
+    width: 16px;
+    background-image: url(../../assets/Image/Sprites.64af8f61.svg);
+    cursor: pointer;
+    background-position: -1178px -359px;
+}
+/* Error */
+/* .m-toast-box .m-toast-item.m-toast-error{
+    background-color: white;
+} */
+/* .m-toast-box .m-toast-item.m-toast-error .m-toast-icon {
+    color: red;
+}
+
+.m-toast-box .m-toast-item.m-toast-error .m-toast-close {
+    color: red;
+}
+
+.m-toast-box .m-toast-item.m-toast-error .m-toast-close:hover {
+    color: rgb(163, 4, 4);
+} */
+
+/* Warning */
+/* .m-toast-box .m-toast-item.m-toast-warning{
+    background-color: white;
+} */
+/* .m-toast-box .m-toast-item.m-toast-warning .m-toast-icon {
+    color: rgb(194, 167, 16);
+}
+
+.m-toast-box .m-toast-item.m-toast-warning .m-toast-close {
+    color: rgb(194, 167, 16);
+}
+
+.m-toast-box .m-toast-item.m-toast-warning .m-toast-close:hover {
+    color: rgb(252, 227, 88);
+} */
+
+/* Warning */
+/* .m-toast-box .m-toast-item.m-toast-success{
+    background-color: white;
+} */
+/* .m-toast-box .m-toast-item.m-toast-success .m-toast-icon {
+    color: rgb(31, 121, 9);
+}
+
+.m-toast-box .m-toast-item.m-toast-success .m-toast-close {
+    color: rgb(31, 121, 9);
+}
+
+.m-toast-box .m-toast-item.m-toast-success .m-toast-close:hover {
+    color: rgb(19, 245, 38);
+} */
+
+/* info */
+/* .m-toast-box .m-toast-item.m-toast-info{
+    background-color: white;
+} */
+/* .m-toast-box .m-toast-item.m-toast-info .m-toast-icon {
+    color: rgb(14, 28, 219);
+}
+
+.m-toast-box .m-toast-item.m-toast-info .m-toast-close {
+    color: rgb(14, 28, 219);
+}
+
+.m-toast-box .m-toast-item.m-toast-info .m-toast-close:hover {
+    color: rgb(84, 118, 211);
+} */

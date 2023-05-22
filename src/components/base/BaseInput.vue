@@ -5,6 +5,7 @@
       v-model="value" />
     <div v-show="showErorr" class="error-input-alert">
       <p class="error-input-arrow"></p>
+      <!-- <i class="fa-sharp fa-solid fa-circle-exclamation" style="color: red;"></i> -->
       <div class="error-input-content">
         <p>
           {{ messError }}

@@ -1,12 +1,11 @@
 import axios from "axios";
 
 // Hàm chung để gọi API
-async function callAPI(method, url, params, data) {
+async function callAPI(method, url, data) {
   try {
     const response = await axios.request({
       method,
       url,
-      params,
       data,
     });
 

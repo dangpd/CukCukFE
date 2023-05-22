@@ -102,7 +102,7 @@ export default {
   components: { BaseContentTitle, BaseFunction, BaseContentButtom, BaseLoading, BaseFilterSearch, },
   data() {
     return {
-      titleF: Resource.TextVi.TitleContent.Material,
+      titleF: Resource.TitleContent.Material,
       isLoading: false,
       dataTable: {},
       totalRecord: 0,
