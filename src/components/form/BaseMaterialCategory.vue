@@ -411,7 +411,7 @@ export default {
         // show popup xác nhận xóa
         this.customPopup(
           true,
-          `${Resource.ERROR_VALIDATE_FE.QuestionDeleteStock} << ${this.dataSelceted.stockCode} - ${this.dataSelceted.stockName} >> ?`,
+          `${Resource.ERROR_VALIDATE_FE.QuestionDeleteMaterialCategory} << ${this.dataSelceted.categoryCode} - ${this.dataSelceted.categoryName} >> ?`,
           Resource.VUE_APP_POPUP.WARNING_DEL
         );
         // Hàm xử lý khi click có
