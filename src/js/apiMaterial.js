@@ -37,7 +37,7 @@ class Material {
      * Created by : DangPD(20/3/2023)
      * @returns bản ghi
      */
-    inSertRecord() {
+    insertRecord() {
         return `${this.getAll()}/`;
     }
 

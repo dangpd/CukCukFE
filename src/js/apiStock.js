@@ -5,7 +5,7 @@ class Stock {
      * @returns danh sách
      */
     getAll() {
-        let UrlMain = `${process.env.VUE_APP_URL_API}Stock`;
+        let UrlMain = `${process.env.VUE_APP_URL_API}Stocks`;
         return UrlMain;
     }
 
@@ -28,8 +28,8 @@ class Stock {
      * @param {*} sort 
      * @returns danh sách 
      */
-    filterAndPaging(key = '', pageSize, pageNumber, sort = '') {
-        return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
+    filterAndPaging(pageSize, pageNumber, sort = '') {
+        return `${this.getAll()}/Filter?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
     }
 
     /**
@@ -37,7 +37,7 @@ class Stock {
      * Created by : DangPD(20/3/2023)
      * @returns bản ghi
      */
-    inSertRecord() {
+    insertRecord() {
         return `${this.getAll()}/`;
     }
 

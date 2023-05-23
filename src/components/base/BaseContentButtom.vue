@@ -55,7 +55,7 @@
         <div class="number-item-on-pages">
           <BaseSelectbox
             :data="listDataEmpInPage"
-            v-model="this.pageSizeNew"
+            v-model="this.pageSize"
             :style="`width: 100px`"
           ></BaseSelectbox>
         </div>
@@ -63,8 +63,8 @@
       <div class="number-pages-left">
         Hiển thị {{ (pageChoiceOld - 1) * pageSize + 1 }} -
         {{
-          pageChoiceOld * pageSizeNew < totalCount
-            ? pageChoiceOld * pageSizeNew
+          pageChoiceOld * pageSize < totalCount
+            ? pageChoiceOld * pageSize
             : totalCount
         }}
         trên <b>{{ totalCount }}</b> kết quả
@@ -85,7 +85,7 @@ export default {
       pageChoiceOld: 1, // page number được chọn
       totalEmployee: 0, // tổng số nhân viên
       // totalPage: 0, // tổng số trang
-      pageSizeNew: 20, // kích thước một trang
+      pageSize: 20, // kích thước một trang
       // Danh sách hiển thị số bản ghi trên trang
       listDataEmpInPage: [
         { feildShow: "20", feildValue: 20 },
@@ -97,9 +97,9 @@ export default {
     };
   },
   components: { BaseButtonIcon, BaseInput, BaseSelectbox },
-  props: ["totalCount", "totalPage", "pageSize"],
+  props: ["totalCount", "totalPage",],
   created() {
-    this.pageSizeNew = this.pageSize;
+    // this.pageSize = this.pageSize;
     // console.log(this.pageSize);
   },
   methods: {
@@ -113,7 +113,7 @@ export default {
         this.pageChoiceOld = pagePosition;
         this.$emit("getDataNumberTable", {
           pageNumber: this.pageChoice,
-          pageSize: this.pageSizeNew,
+          pageSize: this.pageSize,
         });
       } else {
         this.pageChoice = this.pageChoiceOld;
@@ -131,7 +131,7 @@ export default {
           this.pageChoiceOld = data.modelValue;
           this.$emit("getDataNumberTable", {
             pageNumber: this.pageChoice,
-            pageSize: this.pageSizeNew,
+            pageSize: this.pageSize,
           });
           this.pageChoiceOld = this.pageChoice;
         }
@@ -151,7 +151,7 @@ export default {
               this.pageChoiceOld = data.modelValue;
               this.$emit("getDataNumberTable", {
                 pageNumber: this.pageChoice,
-                pageSize: this.pageSizeNew,
+                pageSize: this.pageSize,
               });
               break;
             default:
@@ -164,18 +164,18 @@ export default {
     },
 
     reloadAll() {
-      this.pageSizeNew = 20;
+      this.pageSize = 20;
       this.$emit("reloadAll");
     },
   },
   watch: {
-    pageSizeNew(newVal) {
+    pageSize(newVal) {
       this.$emit("update:pageSize", newVal);
       console.log(newVal);
-      this.pageSizeNew = newVal;
+      this.pageSize = newVal;
       this.$emit("getDataNumberTable", {
         pageNumber: 1,
-        pageSize: this.pageSizeNew,
+        pageSize: this.pageSize,
       });
       this.pageChoice = 1;
     },
@@ -185,14 +185,8 @@ export default {
       this.pageChoice = newVal;
       this.$emit("getDataNumberTable", {
         pageNumber: this.pageChoice,
-        pageSize: this.pageSizeNew,
+        pageSize: this.pageSize,
       });
-    },
-
-    pageSize(newVal) {
-      console.log(newVal);
-      this.pageSizeNew = newVal;
-      console.log(this.pageSizeNew);
     },
   },
 };

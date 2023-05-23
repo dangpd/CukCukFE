@@ -12,7 +12,7 @@
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
           styleCss="padding:0 8px" @click="deleteItem" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
-          val="Nạp" styleCss="padding:0 8px" @click="reloadTablePageChoice" />
+          val="Nạp" styleCss="padding:0 8px" @click="reloadTable" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
@@ -67,7 +67,7 @@
         </div>
       </div>
       <div class="table__paging">
-        <BaseContentButtom :totalCount="totalRecord" :totalPage="totalPage" :pageSize="pageSize" ref="pageNumber"
+        <BaseContentButtom :totalCount="totalRecord" :totalPage="totalPage" ref="pageNumber"
           @getDataNumberTable="getDataNumberTable" @reloadAll="reloadTable"></BaseContentButtom>
       </div>
     </div>
@@ -241,12 +241,10 @@ export default {
         );
       }
     },
-    reloadTablePageChoice() {
-      this.$emit("update:pageSize", 20)
-    },
 
     reloadTable() {
-      this.pageChoice = 1;
+      this.$refs.pageNumber.pageSize = 20;
+      this.$refs.pageNumber.pageChoice = 1;
       this.dataFilter = [
         {
           field: "status",

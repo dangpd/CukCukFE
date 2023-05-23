@@ -28,8 +28,8 @@ class MaterialCategory {
      * @param {*} sort 
      * @returns danh sách 
      */
-    filterAndPaging(key = '', pageSize, pageNumber, sort = '') {
-        return `${this.getAll()}/Filter?textSearch=${key}&pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
+    filterAndPaging(pageSize, pageNumber, sort = '') {
+        return `${this.getAll()}/Filter?pageSize=${pageSize}&pageNumber=${pageNumber}&sort=${sort}`;
     }
 
     /**
@@ -37,7 +37,7 @@ class MaterialCategory {
      * Created by : DangPD(20/3/2023)
      * @returns bản ghi
      */
-    inSertRecord() {
+    insertRecord() {
         return `${this.getAll()}/`;
     }
 

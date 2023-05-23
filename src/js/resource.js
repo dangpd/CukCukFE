@@ -170,7 +170,7 @@ const Resource = {
   ERROR_BE: {
     Unknow: "Lỗi không xác định. Vui lòng liên hệ MISA",
     DuplicateCodeMaterial: "Trùng mã nguyên vật liệu",
-    DuplicateCodeMaterialCategory: "Trùng mã kho ngầm định",
+    DuplicateCodeMaterialCategory: "Trùng mã nhóm nguyên vật liệu ngầm định",
     DuplicateCodeUnit: "Trùng tên đơn vị tính",
     DuplicateCodeStock: "Trùng mã kho chuyển đổi",
     // DuplicateCode: "Bản ghi đã bị xóa hoặc không tồn tại",
@@ -181,6 +181,8 @@ const Resource = {
     UnitNameNotEmpty: "Tên đơn vị tính không được bỏ trống",
     StockCodeNotEmpty: "Mã kho không được bỏ trống",
     StockNameNotEmpty: "Tên kho không được bỏ trống",
+    CategoryCodeNotEmpty: "Mã nhóm nguyên vật liệu không được bỏ trống",
+    CategoryNameNotEmpty: "Tên nhóm nguyên vật liệu không được bỏ trống",
     MaterialNameNotEmpty: "Tên nguyên vật liệu không được bỏ trống",
     MaterialCodeNotEmpty: "Mã nguyên vật liệu không được bỏ trống",
     UnitIDNotEmpty: "Đơn vị tính không được bỏ trống",
