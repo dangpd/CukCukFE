@@ -100,7 +100,7 @@ export default {
   props: ["totalCount", "totalPage", "pageSize"],
   created() {
     this.pageSizeNew = this.pageSize;
-    console.log(this.pageSize);
+    // console.log(this.pageSize);
   },
   methods: {
     /**

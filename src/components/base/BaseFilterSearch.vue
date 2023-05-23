@@ -128,7 +128,7 @@ export default {
     watch: {
         valueSearch(newVal) {
             this.valueSearch = newVal;
-            console.log(newVal);
+            // console.log(newVal);
             if(newVal == null){
                 this.valueSearch = "";
             }

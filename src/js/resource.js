@@ -168,12 +168,12 @@ const Resource = {
   },
 
   ERROR_BE: {
-    e000: "Lỗi không xác định. Vui lòng liên hệ MISA",
-    e001: "Trùng mã nguyên vật liệu",
-    e002: "Trùng mã kho ngầm định",
-    e003: "Trùng tên đơn vị tính",
-    e004: "Trùng đơn vị chuyển đổi",
-    e005: "Bản ghi đã bị xóa hoặc không tồn tại",
+    Unknow: "Lỗi không xác định. Vui lòng liên hệ MISA",
+    DuplicateCodeMaterial: "Trùng mã nguyên vật liệu",
+    DuplicateCodeMaterialCategory: "Trùng mã kho ngầm định",
+    DuplicateCodeUnit: "Trùng tên đơn vị tính",
+    DuplicateCodeStock: "Trùng mã kho chuyển đổi",
+    // DuplicateCode: "Bản ghi đã bị xóa hoặc không tồn tại",
   },
 
   // Danh sách lỗi validate frontend
@@ -299,7 +299,12 @@ const Resource = {
   Response: {
     Success: 1,
     Error: 0,
+    BadRequest: 400,
+    Exception: 500,
+    ServerError: 500
   },
+
+  Nodata: "Không có dữ liệu",
 
   VUE_APP_TOAST: {
     ADDSUCCESS: "addSuccess",
@@ -321,6 +326,25 @@ const Resource = {
     QUESTION: "question",
   },
 
-  Nodata: "Không có dữ liệu",
+  ERRORCODE_BE: {
+    AnKnowError: "000",
+    DuplicateCodeConversionUnit: "001",
+    DuplicateCodeMaterial: "002",
+    DuplicateCodeMaterialCategory: "003",
+    DuplicateCodeStock: "004",
+    DuplicateCodeUnit: "005",
+    Nodifine: "008",
+    NotexistOrDeleted: "009",
+    UnitNameNotEmpty: "010",
+    StockCodeNotEmpty: "011",
+    CategoryCodeNotEmpty: "012",
+    CategoryNameNotEmpty: "013",
+    ConverunitNotEmpty: "014",
+    MaterialCodeNotEmpty: "015",
+    MaterialNameNotEmpty: "016",
+    FeatureNotEmpty: "017",
+    StockNameNotEmpty: "018",
+  },
+
 };
 export default Resource;

@@ -3,56 +3,16 @@
     <BaseContentTitleVue :title="titleF"></BaseContentTitleVue>
     <div class="table">
       <div class="material_function">
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-add"
-          colorIcon="#2281c1"
-          val="Thêm"
-          styleCss="padding:0 8px"
-          @click="addForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-copy"
-          colorIcon="#2281c1"
-          val="Nhân bản"
-          styleCss="padding:0 8px"
-          @click="duplicateForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-pen-to-square"
-          colorIcon="#2281c1"
-          val="Sửa"
-          styleCss="padding:0 8px"
-          @click="updateForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-xmark"
-          colorIcon="red"
-          val="Xóa"
-          styleCss="padding:0 8px"
-          @click="deleteItem"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-rotate"
-          colorIcon="#2281c1"
-          val="Nạp"
-          styleCss="padding:0 8px"
-          @click="reloadTable"
-        />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm"
+          styleCss="padding:0 8px" @click="addForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-copy" colorIcon="#2281c1"
+          val="Nhân bản" styleCss="padding:0 8px" @click="duplicateForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-pen-to-square" colorIcon="#2281c1"
+          val="Sửa" styleCss="padding:0 8px" @click="updateForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
+          styleCss="padding:0 8px" @click="deleteItem" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
+          val="Nạp" styleCss="padding:0 8px" @click="reloadTablePageChoice" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
@@ -62,21 +22,13 @@
               <th style="min-width: 500px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Đơn vị tính</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="conversionUnitName"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="conversionUnitName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 500px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Diễn giải</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="description"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="description" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="width: calc(100% - 1000px); border: 1px solid #bbb">
@@ -84,48 +36,27 @@
                   Ngừng theo dõi
                 </div>
                 <div style="display: flex; margin: 8px 0">
-                  <BaseSelectBoxDown
-                    :data="[
-                      { status: 'Có', value: '2' },
-                      { status: 'Không', value: '1' },
-                    ]"
-                    :style="`background-color: #fff;`"
-                    fieldNameShow="status"
-                    fieldNameValue="value"
-                    fieldName="status"
-                    :setData="
-                      dataFilter.find((item) => item.field == 'status').value
-                    "
-                    @getValue="changeFilterStatus"
-                    :fieldListHide="[{ field: 'status' }]"
-                  >
+                  <BaseSelectBoxDown :data="[
+                    { status: 'Có', value: '2' },
+                    { status: 'Không', value: '1' },
+                  ]" :style="`background-color: #fff;`" fieldNameShow="status" fieldNameValue="value"
+                    fieldName="status" :setData="dataFilter.find((item) => item.field == 'status').value
+                      " @getValue="changeFilterStatus" :fieldListHide="[{ field: 'status' }]">
                   </BaseSelectBoxDown>
                 </div>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(item, index) in dataTable"
-              :key="index"
-              @dblclick="dbUpdateForm(item)"
-              @click="trClick(item)"
+            <tr v-for="(item, index) in dataTable" :key="index" @dblclick="dbUpdateForm(item)" @click="trClick(item)"
               :class="{
                 'row-selected': dataSelceted == item,
-              }"
-            >
+              }">
               <td class="text-align-left">{{ item.conversionUnitName }}</td>
               <td class="text-align-left">{{ item.description }}</td>
-              <td
-                class="text-align-center"
-                style="padding-left: 100px; z-index: 0"
-              >
-                <BaseCheckBox
-                  class="checkbox_table_status"
-                  disable
-                  :modelCheckbox="item.status == '2'"
-                  :value="item.status"
-                />
+              <td class="text-align-center" style="padding-left: 100px; z-index: 0">
+                <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status == '2'"
+                  :value="item.status" />
               </td>
             </tr>
           </tbody>
@@ -136,40 +67,17 @@
         </div>
       </div>
       <div class="table__paging">
-        <BaseContentButtom
-          :totalCount="totalRecord"
-          :totalPage="totalPage"
-          :pageSize="pageSize"
-          ref="pageNumber"
-          @getDataNumberTable="getDataNumberTable"
-          @reloadAll="reloadTable"
-        ></BaseContentButtom>
+        <BaseContentButtom :totalCount="totalRecord" :totalPage="totalPage" :pageSize="pageSize" ref="pageNumber"
+          @getDataNumberTable="getDataNumberTable" @reloadAll="reloadTable"></BaseContentButtom>
       </div>
     </div>
-    <TheFormUnit
-      v-if="showForm"
-      @onClose="showForm = false"
-      :id="id"
-      :type="type"
-      @saveDataSucces="saveDataSucces"
-      @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail"
-      @getNewForm="getNewForm"
-    ></TheFormUnit>
-    <BaseToast
-      v-if="toast.isShowToast"
-      :icon="toast.iconToast"
-      :message="toast.messageToast"
-      @closeToast="closeToastItem()"
-    ></BaseToast>
-    <BasePopUp
-      v-if="popup.isShowPopup"
-      :message="popup.messagePopup"
-      :type="popup.typePopup"
-      @closePopup="customPopup()"
-      @clickWarningDeleteYes="popup.callbackFunc.callbackWarningDeleteYes"
-    />
+    <TheFormUnit v-if="showForm" @onClose="showForm = false" :id="id" :type="type" @saveDataSucces="saveDataSucces"
+      @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess" @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewForm"></TheFormUnit>
+    <BaseToast v-if="toast.isShowToast" :icon="toast.iconToast" :message="toast.messageToast"
+      @closeToast="closeToastItem()"></BaseToast>
+    <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup()"
+      @clickWarningDeleteYes="popup.callbackFunc.callbackWarningDeleteYes" />
   </div>
 </template>
   
@@ -241,7 +149,7 @@ export default {
         messagePopup: "", // nội dung popup
         typePopup: "", // loại popup
         callbackFunc: {
-          callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
+          callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
         },
       },
     };
@@ -252,16 +160,15 @@ export default {
         if (value.filterVal != "") {
           // Tạo đối tượng search lọc thông tin
           var addFilter = {
-            Field: value.field.charAt(0).toUpperCase() + value.field.slice(1),
-            Operater: value.filterType,
-            Value: value.filterVal,
+            field: value.field,
+            operater: value.filterType,
+            value: value.filterVal,
           };
           // Xóa phần tử cần tìm kiếm nếu có Field cần search trùng với addFilter vừa tạo ở trên
           this.dataFilter = this.dataFilter.filter((data) => {
             return data.field != addFilter.field;
           });
           this.dataFilter.push(addFilter);
-          console.log(this.dataFilter);
           this.getPaging(
             this.pageSize,
             this.pageChoice,
@@ -269,14 +176,9 @@ export default {
             this.dataFilter
           );
         } else {
-          // var lengthOrigin = this.dataFilter.length // Độ dài của dữ liệu cần lọc ban đầu
           this.dataFilter = this.dataFilter.filter((data) => {
-            return (
-              data.field !=
-              value.field.charAt(0).toUpperCase() + value.field.slice(1)
-            );
+            return data.field != value.field;
           });
-          console.log(this.dataFilter);
           this.getPaging(
             this.pageSize,
             this.pageChoice,
@@ -338,6 +240,9 @@ export default {
           this.dataFilter
         );
       }
+    },
+    reloadTablePageChoice() {
+      this.$emit("update:pageSize", 20)
     },
 
     reloadTable() {
@@ -601,6 +506,7 @@ export default {
     },
     pageSize(newVal) {
       this.pageSize = newVal;
+      this.reloadTable();
       console.log(newVal);
     },
   },

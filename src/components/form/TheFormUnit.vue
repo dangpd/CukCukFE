@@ -3,87 +3,49 @@
     <div class="form_detail">
       <div class="form_title">
         {{ this.title }}
-        <i
-          class="fa-solid fa-xmark"
-          @click="btnOnExit"
-          style="border: 1px solid white; padding: 2px 4px; border-radius: 50%"
-        ></i>
+        <i class="fa-solid fa-xmark" @click="btnOnExit"
+          style="border: 1px solid white; padding: 2px 4px; border-radius: 50%"></i>
       </div>
       <div class="content_add_unit">
         <div class="add_unit_item">
           <div class="add_unit_name">
             Đơn vị tính <span style="color: red">(*)</span>
           </div>
-          <BaseInput
-            style="width: 250px"
-            v-model="unit.conversionUnitName"
-            :required="true"
-            ref="conversionUnitName"
-            :messError="conversionUnitNameNotEmpty"
-          />
+          <BaseInput style="width: 250px" v-model="unit.conversionUnitName" :required="true" ref="conversionUnitName"
+            :messError="conversionUnitNameNotEmpty" />
         </div>
         <div class="add_unit_item">
           <div class="add_unit_name">Diễn giải</div>
-          <BaseTextArea
-            :style="`width: 250px;
+          <BaseTextArea :style="`width: 250px;
               height: 80px;
               padding-left: 16px;
-              padding-top: 8px;`"
-            v-model="unit.description"
-          />
+              padding-top: 8px;`" v-model="unit.description" />
         </div>
         <div class="add_unit_func">
-          <div
-            style="
+          <div style="
               display: flex;
               align-items: center;
               justify-content: space-around;
               width: 100%;
-            "
-          >
-            <BaseButtonIcon
-              icon="fa-solid  fa-circle-question"
-              colorIcon="#2281c1"
-              val="Giúp"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
-            />
-            <BaseButtonIcon
-              icon="fa-sharp fa-solid fa-floppy-disk"
-              colorIcon="#2281c1"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
-              val="Cất"
-              @click="saveAndClose"
-            />
-            <BaseButtonIcon
-              icon="fa-solid fa-file-export"
-              colorIcon="#2281c1"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
-              val="Cất và thêm"
-              @click="saveAndAdd"
-            />
-            <BaseButtonIcon
-              icon="fa-regular fa-circle-xmark"
-              colorIcon="red"
-              val="Hủy"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
-              @click="btnOnCancel"
-            />
+            ">
+            <BaseButtonIcon icon="fa-solid  fa-circle-question" colorIcon="#2281c1" val="Giúp"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" />
+            <BaseButtonIcon icon="fa-sharp fa-solid fa-floppy-disk" colorIcon="#2281c1"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" val="Cất" @click="saveAndClose" />
+            <BaseButtonIcon icon="fa-solid fa-file-export" colorIcon="#2281c1"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" val="Cất và thêm" @click="saveAndAdd" />
+            <BaseButtonIcon icon="fa-regular fa-circle-xmark" colorIcon="red" val="Hủy"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" @click="btnOnCancel" />
           </div>
         </div>
       </div>
     </div>
     <BaseLoading v-if="loadingForm"></BaseLoading>
-    <BasePopUp
-      v-if="popup.isShowPopup"
-      :message="popup.messagePopup"
-      :type="popup.typePopup"
-      @closePopup="customPopup"
+    <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup"
       @processWhenClose="popup.callbackFun.callbackProcessWhenClose"
       @clickWarningDeleteYes="popup.callbackFun.callbackWarningDeleteYes"
-      @confirmPopup="popup.callbackFun.callbackConfirmPopup"
-      @clickQuestionNo="popup.callbackFun.callbackQuestionNo"
-      @clickQuestionYes="popup.callbackFun.callbackQuestionYes"
-    />
+      @confirmPopup="popup.callbackFun.callbackConfirmPopup" @clickQuestionNo="popup.callbackFun.callbackQuestionNo"
+      @clickQuestionYes="popup.callbackFun.callbackQuestionYes" />
   </div>
 </template>
 
@@ -97,6 +59,7 @@ import unitService from "@/js/apiUnit";
 import Resource from "@/js/resource";
 import callAPI from "@/js/callAxios";
 import { isNull, shallowEqual } from "@/js/common";
+import _ from 'underscore';
 
 export default {
   name: "TheFormUnit",
@@ -131,11 +94,11 @@ export default {
         messagePopup: "", // tiêu đề popup
         typePopup: "", // loại popup
         callbackFun: {
-          callbackProcessWhenClose: () => {}, // Xử lý khi đóng popup
-          callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
-          callbackConfirmPopup: () => {}, // xử lý khi click đồng ý popup warning
-          callbackQuestionNo: () => {}, // xử lý khi click không popup question
-          callbackQuestionYes: () => {}, // xử lý khi click có popup question
+          callbackProcessWhenClose: () => { }, // Xử lý khi đóng popup
+          callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
+          callbackConfirmPopup: () => { }, // xử lý khi click đồng ý popup warning
+          callbackQuestionNo: () => { }, // xử lý khi click không popup question
+          callbackQuestionYes: () => { }, // xử lý khi click có popup question
         },
       },
     };
@@ -226,7 +189,10 @@ export default {
             this.$emit("saveDataFail");
             this.callNewForm();
           }
-        });
+        })
+          .catch((err) => {
+            this.handleError(err);
+          })
       } else {
         const response = callAPI(
           Resource.HTTP_METHOD.PUT,
@@ -243,9 +209,40 @@ export default {
             this.$emit("saveDataFail");
             this.callNewForm();
           }
-        });
+        })
+          .catch((err) => {
+            this.handleError(err);
+          })
       }
     },
+
+    handleError(err) {
+      // console.log(err.response)
+      // console.log(err.response.data.moreInfo)
+      if (err.response.data.errorCode == Resource.Response.BadRequest) {
+        // var listErrorBE = [];
+        var listMessError = [];
+        var error = err.response.data.moreInfo;
+        _.size(error);
+        console.log(error);
+        if (error == Resource.ERRORCODE_BE.DuplicateCodeUnit) {
+          this.$refs.conversionUnitName.validate();
+          this.conversionUnitNameNotEmpty = Resource.ERROR_BE.DuplicateCodeUnit;
+          this.$emit("update:conversionUnitNameNotEmpty", Resource.ERROR_BE.DuplicateCodeUnit)
+          listMessError += Resource.ERROR_BE.DuplicateCodeUnit;
+        } else {
+          for (let i = 0; i < error; i++) {
+            // Thiếu mã nhân viên thực hiện focus mã nhân viên bằng true
+            if (err.response.data.moreInfo[i] == Resource.ERRORCODE_BE.DuplicateCodeUnit) {
+              this.$refs.conversionUnitName.validate();
+              listMessError += Resource.ERROR_BE.UnitNameNotEmpty;
+            }
+          }
+        }
+      }
+      this.customPopup(true, listMessError, Resource.VUE_APP_POPUP.ERROR);
+    },
+
     saveAndClose() {
       try {
         if (!this.validateData().validate) {
