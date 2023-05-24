@@ -40,7 +40,7 @@
           <BaseTextArea
             :style="`width: 250px;
                   height: 80px;
-                  padding-left: 16px;
+                  padding-left: 8px;
                   padding-top: 8px;`"
             v-model="materialCategory.description"
           />
@@ -206,12 +206,12 @@ export default {
       var errorMess = ""; // Danh sách các trường lỗi
       if (!isNull(this.materialCategory.categoryCode)) {
         this.$refs.categoryCode.validate();
-        errorMess += Resource.ERROR_VALIDATE_FE.CategoryCodeNotEmpty;
+        errorMess += Resource.ERROR_VALIDATE_FE.CategoryCodeNotEmpty + "\n";
         validate = false;
       }
       if (!isNull(this.materialCategory.categoryName)) {
         this.$refs.categoryName.validate();
-        errorMess += Resource.ERROR_VALIDATE_FE.CategoryNameNotEmpty;
+        errorMess += Resource.ERROR_VALIDATE_FE.CategoryNameNotEmpty + "\n";
         validate = false;
       }
       return {

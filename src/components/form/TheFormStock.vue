@@ -3,6 +3,7 @@
     <div class="form_detail">
       <div class="form_title">
         {{ this.title }}
+        
         <i
           class="fa-solid fa-xmark"
           @click="btnOnExit"
@@ -40,7 +41,7 @@
           <BaseTextArea
             :style="`width: 250px;
                 height: 80px;
-                padding-left: 16px;
+                padding-left: 8px;
                 padding-top: 8px;`"
             v-model="stock.address"
           />
@@ -206,12 +207,12 @@ export default {
       var errorMess = ""; // Danh sách các trường lỗi
       if (!isNull(this.stock.stockCode)) {
         this.$refs.stockCode.validate();
-        errorMess += Resource.ERROR_VALIDATE_FE.StockCodeNotEmpty;
+        errorMess += Resource.ERROR_VALIDATE_FE.StockCodeNotEmpty + "\n";
         validate = false;
       }
       if (!isNull(this.stock.stockName)) {
         this.$refs.stockName.validate();
-        errorMess += Resource.ERROR_VALIDATE_FE.StockNameNotEmpty;
+        errorMess += Resource.ERROR_VALIDATE_FE.StockNameNotEmpty + "\n";
         validate = false;
       }
       return {

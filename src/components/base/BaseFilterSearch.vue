@@ -145,6 +145,7 @@ export default {
     position: relative;
     display: flex;
     width: 100%;
+    align-items: center;
 }
 
 .list_filter {

@@ -341,7 +341,8 @@ export default {
 .form_detail {
   position: absolute;
   height: auto;
-  width: 400px;
+  /* width: 400px; */
+  width: auto;
   border-radius: 6px;
   border: 5px solid #0072bc;
   background-color: #0072bc;

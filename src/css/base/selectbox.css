@@ -33,6 +33,7 @@
 
 .select-box-hidden button:hover {
     background-color: #edf6fd;
+    cursor: pointer;
 }
 
 .select-box-focus {

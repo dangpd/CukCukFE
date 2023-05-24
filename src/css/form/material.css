@@ -7,6 +7,8 @@
     border-top: 1px solid rgb(203, 203, 203);
     border-left: 1px solid rgb(203, 203, 203);
     border-right: 1px solid rgb(203, 203, 203);
+    border-bottom: 1px solid rgb(203, 203, 203);
+
 }
 .table{
     width: 100%;
@@ -17,10 +19,12 @@
 
 .table__content {   
     width: 100%;
-    height: calc(100% - 72px);
+    height: calc(100% - 71px);
     overflow-y: auto;
     box-sizing: border-box;
     z-index: 2;
+    border-top: 1px solid rgb(203, 203, 203);;
+    
 }
 
 .m-table {
@@ -46,6 +50,7 @@
     /* height: calc(100vh - 252px ); */
     /* height: calc(100vh - 60px - 60px ); */
     border: 1px solid #bbb;
+    padding-bottom: 10px;
 }
 
 .m-table tr {

@@ -5,7 +5,7 @@
                 <input type="text" class="select-box-main" v-model="textInput" ref="inputSelectBox" @input="inputOnChange"
                     @focus="onFocusInput" @keydown="selecItemUpDown" @click="setShowBorder = false" />
                 <button v-if="!setShowBorder" tabindex="-1" @click="btnSelectDataOnClick" @keydown="selecItemUpDown">
-                    <div class="icon_background_1 select-box-icon"></div>
+                    <div class="icon_background_1 select-box-iconc"></div>
                 </button>
                 <div v-if="addSelect && !setShowBorder" class="add_select_box" @click="clickAddSelect">
                     <i :class="addSelectIcon" :style="{ color: addSelectColor }"></i>

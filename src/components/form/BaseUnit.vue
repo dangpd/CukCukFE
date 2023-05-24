@@ -4,15 +4,15 @@
     <div class="table">
       <div class="material_function">
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm"
-          styleCss="padding:0 8px" @click="addForm" />
+          styleCss="padding:0 8px;cursor:pointer;" @click="addForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-copy" colorIcon="#2281c1"
-          val="Nhân bản" styleCss="padding:0 8px" @click="duplicateForm" />
+          val="Nhân bản" styleCss="padding:0 8px;cursor:pointer;" @click="duplicateForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-pen-to-square" colorIcon="#2281c1"
-          val="Sửa" styleCss="padding:0 8px" @click="updateForm" />
+          val="Sửa" styleCss="padding:0 8px;cursor:pointer;" @click="updateForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
-          styleCss="padding:0 8px" @click="deleteItem" />
+          styleCss="padding:0 8px;cursor:pointer;" @click="deleteItem" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
-          val="Nạp" styleCss="padding:0 8px" @click="reloadTable" />
+          val="Nạp" styleCss="padding:0 8px;cursor:pointer;" @click="reloadTable" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
@@ -31,7 +31,7 @@
                   <BaseFilterSearch type="string" field="description" @changeFilter="changeFilter" />
                 </div>
               </th>
-              <th style="width: calc(100% - 1000px); border: 1px solid #bbb">
+              <th style="width: 150px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">
                   Ngừng theo dõi
                 </div>
@@ -39,7 +39,7 @@
                   <BaseSelectBoxDown :data="[
                     { status: 'Có', value: '2' },
                     { status: 'Không', value: '1' },
-                  ]" :style="`background-color: #fff;`" fieldNameShow="status" fieldNameValue="value"
+                  ]" :style="`background-color: #fff;width:150px`" fieldNameShow="status" fieldNameValue="value"
                     fieldName="status" :setData="dataFilter.find((item) => item.field == 'status').value
                       " @getValue="changeFilterStatus" :fieldListHide="[{ field: 'status' }]">
                   </BaseSelectBoxDown>
@@ -54,7 +54,7 @@
               }">
               <td class="text-align-left">{{ item.conversionUnitName }}</td>
               <td class="text-align-left">{{ item.description }}</td>
-              <td class="text-align-center" style="padding-left: 100px; z-index: 0">
+              <td class="text-align-center" style="z-index: 0">
                 <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status == '2'"
                   :value="item.status" />
               </td>

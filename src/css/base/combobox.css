@@ -250,10 +250,11 @@ p {
 .select-box-select {
     display: flex;
     height: 36px;
-    width: 200px;
+    /* width: 200px; */
     align-items: center;
     /* border: 1px solid black; */
     border-radius: 4px;
+    position: relative;
 }
 
 
@@ -278,13 +279,24 @@ p {
 }
 
 .select-box-icon {
+    top: 10px;
+    left: 75px;
     height: 16px;
     width: 16px;
     background-position: -560px -359px;
     background-image: url(../../assets/Resource/Sprites.64af8f61.svg);
     margin: 0 auto;
     border: unset;
+    position: absolute;
+}
 
+.select-box-iconc {
+    height: 16px;
+    width: 16px;
+    background-position: -560px -359px;
+    background-image: url(../../assets/Resource/Sprites.64af8f61.svg);
+    margin: 0 auto;
+    border: unset;
 }
 
 .select-box-select button {
@@ -296,17 +308,20 @@ p {
 
 .selectbox__data {
     width: 200px;
-    height: 120px;
+    height: 180px;
     position: absolute;
     top: -185px;
-    background-color: #019160;
+    background-color: #1092c9;
     border-radius: 2px;
     flex-direction: column;
     width: 100%;
-    box-shadow: 0 0 6px #ccc;
+    box-shadow: -3px 0px 3px rgba(141, 134, 134, 0.5),
+        3px 0px 3px rgba(124, 121, 121, 0.5),
+        0px 3px 3px rgba(124, 121, 121, 0.5);
+
 }
 
-.selectbox__data__down{
+.selectbox__data__down {
     width: 150px;
     height: 120px;
     position: absolute;
@@ -334,11 +349,11 @@ a.selectbox__item {
 }
 
 .selectbox__item:hover {
-    background-color: #39AC66;
-    color: #EFF2F4;
+    background-color: #8ecffa;
+    color: #1c1d1f;
 }
 
 .item--selectedbox {
-    background-color: #39AC66;
-    color: #EFF2F4;
+    background-color: #52a2d7;
+    color: #1c1d1f;
 }

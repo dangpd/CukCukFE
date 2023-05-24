@@ -10,7 +10,7 @@
           icon="fa-solid fa-add"
           colorIcon="#2281c1"
           val="Thêm"
-          styleCss="padding:0 8px"
+          styleCss="padding:0 8px;cursor:pointer"
           @click="addForm"
         />
         <BaseButtonIcon
@@ -20,7 +20,7 @@
           icon="fa-solid fa-copy"
           colorIcon="#2281c1"
           val="Nhân bản"
-          styleCss="padding:0 8px"
+          styleCss="padding:0 8px;cursor:pointer"
           @click="duplicateForm"
         />
         <BaseButtonIcon
@@ -30,7 +30,7 @@
           icon="fa-solid fa-pen-to-square"
           colorIcon="#2281c1"
           val="Sửa"
-          styleCss="padding:0 8px"
+          styleCss="padding:0 8px;cursor:pointer"
           @click="updateForm"
         />
         <BaseButtonIcon
@@ -40,7 +40,7 @@
           icon="fa-solid fa-xmark"
           colorIcon="red"
           val="Xóa"
-          styleCss="padding:0 8px"
+          styleCss="padding:0 8px;cursor:pointer"
           @click="deleteItem"
         />
         <BaseButtonIcon
@@ -50,16 +50,16 @@
           icon="fa-solid fa-rotate"
           colorIcon="#2281c1"
           val="Nạp"
-          styleCss="padding:0 8px"
+          styleCss="padding:0 8px;cursor:pointer"
           @click="reloadTable"
         />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
-        <table class="m-table" border="1">
+        <table class="m-table" border="1" style="border: 1px solid rgb(203, 203, 203);">
           <thead>
             <tr>
-              <th style="min-width: 200px; border: 1px solid #bbb">
+              <th style="min-width: 170px; border: 1px solid rgb(203, 203, 203)">
                 <div style="margin-top: 8px; font-weight: 100">
                   Mã nguyên vật liệu
                 </div>
@@ -71,7 +71,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 200px; border: 1px solid #bbb">
+              <th style="min-width: 220px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">
                   Tên nguyên vật liệu
                 </div>
@@ -83,7 +83,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 200px; border: 1px solid #bbb">
+              <th style="min-width: 180px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Tính chất</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
                   <BaseFilterSearch
@@ -93,7 +93,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 200px; border: 1px solid #bbb">
+              <th style="min-width: 170px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Đơn vị tính</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
                   <BaseFilterSearch
@@ -103,7 +103,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 200px; border: 1px solid #bbb">
+              <th style="min-width: 170px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">
                   Nhóm nguyên vật liệu
                 </div>
@@ -115,7 +115,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 200px; border: 1px solid #bbb">
+              <th style="min-width: 170px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">
                   Diễn giải
                 </div>
@@ -127,7 +127,7 @@
                   />
                 </div>
               </th>
-              <th style="width: calc(100% - 1000px); border: 1px solid #bbb">
+              <th style="width: 100px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">
                   Ngừng theo dõi
                 </div>
@@ -137,7 +137,7 @@
                       { status: 'Có', value: '2' },
                       { status: 'Không', value: '1' },
                     ]"
-                    :style="`background-color: #fff;`"
+                    :style="`background-color: #fff;width:150px`"
                     fieldNameShow="status"
                     fieldNameValue="value"
                     fieldName="status"
@@ -170,7 +170,7 @@
               <td class="text-align-left">{{ item.description }}</td>
               <td
                 class="text-align-center"
-                style="padding-left: 100px; z-index: 0"
+                style="align-items: center;"
               >
                 <BaseCheckBox
                   class="checkbox_table_status"

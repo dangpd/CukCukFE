@@ -67,7 +67,7 @@
             ? pageChoiceOld * pageSize
             : totalCount
         }}
-        trên <b>{{ totalCount }}</b> kết quả
+        trên {{ totalCount }} kết quả
       </div>
     </div>
   </div>

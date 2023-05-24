@@ -8,6 +8,9 @@
     text-align: center;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-default:hover{

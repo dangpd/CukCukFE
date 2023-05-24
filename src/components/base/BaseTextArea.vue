@@ -1,10 +1,6 @@
 <template>
   <div>
-    <textarea
-      :style="style"
-      :class="{ focus: textFocusc }"
-      v-model="value"
-    ></textarea>
+    <textarea id="area" :style="style" v-model="value"></textarea>
   </div>
 </template>
 <script>
@@ -41,7 +37,8 @@ textarea {
   border-radius: 2px;
 }
 
-textarea:focus {
-  border-color: green;
+#area:focus {
+  border-color: #019160;
+  outline: none;
 }
 </style>
