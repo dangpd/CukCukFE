@@ -142,12 +142,12 @@ const Resource = {
     DUPLICATE: "duplicate",
   },
 
-  // Kiểu form khi update
-  TYPE_UPDATE: {
-    ADD: 1,
-    UPDATE: 2,
-    DELETE: 3,
-  },
+  // // Kiểu form khi update
+  // TYPE_UPDATE: {
+  //   ADD: 1,
+  //   UPDATE: 2,
+  //   DELETE: 3,
+  // },
 
   // kiểu http request
   HTTP_METHOD: {
@@ -297,7 +297,7 @@ const Resource = {
     warning: "warning",
     error: "error",
   },
-
+    //enum
   Response: {
     Success: 1,
     Error: 0,
@@ -327,7 +327,7 @@ const Resource = {
     ERROR: "error",
     QUESTION: "question",
   },
-
+    //enum
   ERRORCODE_BE: {
     AnKnowError: "000",
     DuplicateCodeConversionUnit: "001",

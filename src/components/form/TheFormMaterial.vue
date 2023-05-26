@@ -1,58 +1,107 @@
 <template>
   <div class="form_material">
-    <div class="form_detail">
+    <div class="form_detail_material">
       <div class="form_title">
         {{ this.title }}
-        <i class="fa-solid fa-xmark" @click="btnOnExit"
-          style="border: 1px solid white; padding: 2px 4px; border-radius: 50%"></i>
+        <i
+          class="fa-solid fa-xmark"
+          @click="btnOnExit"
+          style="border: 1px solid white; padding: 2px 4px; border-radius: 50%"
+        ></i>
       </div>
-      <div class="content_add_unit">
-        <div class="add_unit_item">
-          <div class="add_unit_name">
-            Mã <span style="color: red">(*)</span>
+      <div class="content_add_material">
+        <div class="group">
+          <div class="group1">
+            <div class="add_material_item">
+              <div class="add_material_name">
+                Mã <span style="color: red">(*)</span>
+              </div>
+              <BaseInput
+                style="width: 250px"
+                v-model="material.materialCode"
+                :required="true"
+                ref="materialCode"
+                :messError="materialCodeNotEmpty"
+              />
+            </div>
           </div>
-          <BaseInput style="width: 250px" v-model="material.materialCode" :required="true" ref="materialCode"
-            :messError="materialCodeNotEmpty" />
-        </div>
-        <div class="add_unit_item">
-          <div class="add_unit_name">
-            Tên <span style="color: red">(*)</span>
+          <div class="group2">
+            <div class="add_material_item">
+              <div class="add_material_name">
+                Tên <span style="color: red">(*)</span>
+              </div>
+              <BaseInput
+                style="width: 250px"
+                v-model="material.materialName"
+                :required="true"
+                ref="materialName"
+                :messError="materialNameNotEmpty"
+              />
+            </div>
           </div>
-          <BaseInput style="width: 250px" v-model="material.materialName" :required="true" ref="materialName"
-            :messError="materialNameNotEmpty" />
         </div>
-        <div class="add_unit_item">
-          <div class="add_unit_name">Diễn giải</div>
-          <BaseTextArea :style="`width: 250px;
+        <div class="add_material_item">
+          <div class="add_material_name">Diễn giải</div>
+          <BaseTextArea
+            :style="`width: 250px;
                     height: 80px;
                     padding-left: 8px;
-                    padding-top: 8px;`" v-model="material.description" />
+                    padding-top: 8px;`"
+            v-model="material.description"
+          />
         </div>
         <div class="add_unit_func">
-          <div style="
+          <div
+            style="
               display: flex;
               align-items: center;
               justify-content: space-around;
               width: 100%;
-            ">
-            <BaseButtonIcon icon="fa-solid  fa-circle-question" colorIcon="#2281c1" val="Giúp"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" />
-            <BaseButtonIcon icon="fa-sharp fa-solid fa-floppy-disk" colorIcon="#2281c1"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" val="Cất" @click="saveAndClose" />
-            <BaseButtonIcon icon="fa-solid fa-file-export" colorIcon="#2281c1"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" val="Cất và thêm" @click="saveAndAdd" />
-            <BaseButtonIcon icon="fa-regular fa-circle-xmark" colorIcon="red" val="Hủy"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" @click="btnOnCancel" />
+            "
+          >
+            <BaseButtonIcon
+              icon="fa-solid  fa-circle-question"
+              colorIcon="#2281c1"
+              val="Giúp"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+            />
+            <BaseButtonIcon
+              icon="fa-sharp fa-solid fa-floppy-disk"
+              colorIcon="#2281c1"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+              val="Cất"
+              @click="saveAndClose"
+            />
+            <BaseButtonIcon
+              icon="fa-solid fa-file-export"
+              colorIcon="#2281c1"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+              val="Cất và thêm"
+              @click="saveAndAdd"
+            />
+            <BaseButtonIcon
+              icon="fa-regular fa-circle-xmark"
+              colorIcon="red"
+              val="Hủy"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+              @click="btnOnCancel"
+            />
           </div>
         </div>
       </div>
     </div>
     <BaseLoading v-if="loadingForm"></BaseLoading>
-    <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup"
+    <BasePopUp
+      v-if="popup.isShowPopup"
+      :message="popup.messagePopup"
+      :type="popup.typePopup"
+      @closePopup="customPopup"
       @processWhenClose="popup.callbackFun.callbackProcessWhenClose"
       @clickWarningDeleteYes="popup.callbackFun.callbackWarningDeleteYes"
-      @confirmPopup="popup.callbackFun.callbackConfirmPopup" @clickQuestionNo="popup.callbackFun.callbackQuestionNo"
-      @clickQuestionYes="popup.callbackFun.callbackQuestionYes" />
+      @confirmPopup="popup.callbackFun.callbackConfirmPopup"
+      @clickQuestionNo="popup.callbackFun.callbackQuestionNo"
+      @clickQuestionYes="popup.callbackFun.callbackQuestionYes"
+    />
   </div>
 </template>
       
@@ -77,7 +126,7 @@ export default {
     BaseInput,
     BaseButtonIcon,
     BaseTextArea,
-},
+  },
   props: ["id", "type"],
   data() {
     return {
@@ -106,11 +155,11 @@ export default {
         messagePopup: "", // tiêu đề popup
         typePopup: "", // loại popup
         callbackFun: {
-          callbackProcessWhenClose: () => { }, // Xử lý khi đóng popup
-          callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
-          callbackConfirmPopup: () => { }, // xử lý khi click đồng ý popup warning
-          callbackQuestionNo: () => { }, // xử lý khi click không popup question
-          callbackQuestionYes: () => { }, // xử lý khi click có popup question
+          callbackProcessWhenClose: () => {}, // Xử lý khi đóng popup
+          callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
+          callbackConfirmPopup: () => {}, // xử lý khi click đồng ý popup warning
+          callbackQuestionNo: () => {}, // xử lý khi click không popup question
+          callbackQuestionYes: () => {}, // xử lý khi click có popup question
         },
       },
     };
@@ -352,4 +401,6 @@ export default {
   watch: {},
 };
 </script>
-<style></style>
+<style>
+@import url(../../css/form/form.css);
+</style>
