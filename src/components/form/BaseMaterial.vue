@@ -56,10 +56,10 @@
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
-        <table class="m-table" border="1" style="border: 1px solid rgb(203, 203, 203);">
+        <table class="m-table" border="1">
           <thead>
             <tr>
-              <th style="min-width: 170px; border: 1px solid rgb(203, 203, 203)">
+              <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">
                   Mã nguyên vật liệu
                 </div>
@@ -71,7 +71,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 220px; border: 1px solid #bbb">
+              <th style="min-width: 220px">
                 <div style="margin-top: 8px; font-weight: 100">
                   Tên nguyên vật liệu
                 </div>
@@ -83,7 +83,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 180px; border: 1px solid #bbb">
+              <th style="min-width: 180px">
                 <div style="margin-top: 8px; font-weight: 100">Tính chất</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
                   <BaseFilterSearch
@@ -93,7 +93,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 170px; border: 1px solid #bbb">
+              <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">Đơn vị tính</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
                   <BaseFilterSearch
@@ -103,7 +103,7 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 170px; border: 1px solid #bbb">
+              <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">
                   Nhóm nguyên vật liệu
                 </div>
@@ -115,10 +115,8 @@
                   />
                 </div>
               </th>
-              <th style="min-width: 170px; border: 1px solid #bbb">
-                <div style="margin-top: 8px; font-weight: 100">
-                  Diễn giải
-                </div>
+              <th style="min-width: 170px">
+                <div style="margin-top: 8px; font-weight: 100">Diễn giải</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
                   <BaseFilterSearch
                     type="string"
@@ -127,7 +125,7 @@
                   />
                 </div>
               </th>
-              <th style="width: 100px; border: 1px solid #bbb">
+              <th style="width: 100px">
                 <div style="margin-top: 8px; font-weight: 100">
                   Ngừng theo dõi
                 </div>
@@ -168,10 +166,7 @@
               <td class="text-align-left">{{ item.conversionUnitName }}</td>
               <td class="text-align-left">{{ item.categoryName }}</td>
               <td class="text-align-left">{{ item.description }}</td>
-              <td
-                class="text-align-center"
-                style="align-items: center;"
-              >
+              <td class="text-align-center" style="align-items: center">
                 <BaseCheckBox
                   class="checkbox_table_status"
                   disable
@@ -202,12 +197,49 @@
       @onClose="showForm = false"
       :id="id"
       :type="type"
+      :reloadForm="reloadForm"
       @saveDataSucces="saveDataSucces"
       @saveDataFail="saveDataFail"
       @saveDataAndAddSuccess="saveDataAndAddSuccess"
       @saveDataAndAddFail="saveDataAndAddFail"
       @getNewForm="getNewForm"
+      @showFormUnit="showFormUnits"
+      @showFormStock="showFormStocks"
+      @showFormCategory="showFormCategorys"
     ></TheFormMaterial>
+    <TheFormUnit
+      v-if="showFormUnit"
+      @onClose="showFormUnit = false"
+      :id="idUnit"
+      :type="typeUnit"
+      @saveDataSucces="saveDataSucces"
+      @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccess"
+      @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewForm"
+    ></TheFormUnit>
+    <TheFormStock
+      v-if="showFormStock"
+      @onClose="showFormStock = false"
+      :id="idStock"
+      :type="typeStock"
+      @saveDataSucces="saveDataSucces"
+      @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccess"
+      @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewForm"
+    ></TheFormStock>
+    <TheFormMaterialCategory
+      v-if="showFormCategory"
+      @onClose="showFormCategory = false"
+      :id="idCategory"
+      :type="typeCategory"
+      @saveDataSucces="saveDataSucces"
+      @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccess"
+      @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewForm"
+    ></TheFormMaterialCategory>
     <BaseToast
       v-if="toast.isShowToast"
       :icon="toast.iconToast"
@@ -237,8 +269,11 @@ import BaseButtonIcon from "../base/BaseButtonIcon.vue";
 import BaseToast from "../base/BaseToast.vue";
 import BasePopUp from "../base/BasePopUp.vue";
 import { fetchAPI } from "@/js/common";
-import materialService from '@/js/apiMaterial';
+import materialService from "@/js/apiMaterial";
 import TheFormMaterial from "./TheFormMaterial.vue";
+import TheFormUnit from "./TheFormUnit.vue";
+import TheFormStock from "./TheFormStock.vue";
+import TheFormMaterialCategory from "./TheFormMaterialCategory.vue";
 export default {
   name: "BaseStock",
   props: [""],
@@ -252,8 +287,11 @@ export default {
     BaseButtonIcon,
     BaseToast,
     BasePopUp,
-    TheFormMaterial
-},
+    TheFormMaterial,
+    TheFormStock,
+    TheFormUnit,
+    TheFormMaterialCategory,
+  },
   data() {
     return {
       titleF: Resource.TitleContent.Material,
@@ -276,6 +314,15 @@ export default {
       TYPE_FORM: {},
       id: "",
       type: "",
+      showFormUnit: false,
+      idUnit: "",
+      typeUnit: "",
+      showFormStock: false,
+      idStock: "",
+      typeStock: "",
+      showFormCategory: false,
+      idCategory: "",
+      typeCategory: "",
       dataSelceted: {},
       label: Resource.Nodata,
       showNotFound: false,
@@ -295,6 +342,7 @@ export default {
           callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
         },
       },
+      reloadForm:false,
     };
   },
   methods: {
@@ -420,9 +468,27 @@ export default {
       this.type = Resource.TYPE_FORM.ADD;
     },
 
+    showFormUnits() {
+      this.showFormUnit = true;
+      this.idUnit = null;
+      this.typeUnit = Resource.TYPE_FORM.ADD;
+    },
+
+    showFormStocks() {
+      this.showFormStock = true;
+      this.idStock = null;
+      this.typeStock = Resource.TYPE_FORM.ADD;
+    },
+
+    showFormCategorys() {
+      this.showFormCategory = true;
+      this.idCategory = null;
+      this.typeCategory = Resource.TYPE_FORM.ADD;
+    },
+
     trClick(data) {
       this.dataSelceted = data;
-      console.log("data", this.dataSelceted);
+      // console.log("data", this.dataSelceted);
     },
 
     duplicateForm() {
@@ -516,6 +582,7 @@ export default {
           Resource.VUE_APP_TOAST.ADDSUCCESS,
           Resource.ToastMessage.Success.Save
         );
+        this.reloadForm = true;
       } catch (err) {
         console.log(err);
       }
@@ -551,6 +618,7 @@ export default {
           Resource.VUE_APP_TOAST.ADDSUCCESS,
           Resource.ToastMessage.Success.Save
         );
+        this.reloadForm = true;
       } catch (error) {
         console.log(error);
       }

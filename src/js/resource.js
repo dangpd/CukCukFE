@@ -183,6 +183,7 @@ const Resource = {
     StockNameNotEmpty: "Tên kho không được bỏ trống",
     CategoryCodeNotEmpty: "Mã nhóm nguyên vật liệu không được bỏ trống",
     CategoryNameNotEmpty: "Tên nhóm nguyên vật liệu không được bỏ trống",
+    FeatureNotEmpty: "Tính chất không được bỏ trống",
     MaterialNameNotEmpty: "Tên nguyên vật liệu không được bỏ trống",
     MaterialCodeNotEmpty: "Mã nguyên vật liệu không được bỏ trống",
     UnitIDNotEmpty: "Đơn vị tính không được bỏ trống",

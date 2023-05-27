@@ -11,7 +11,7 @@
     position: fixed;
     /* bottom: calc(100% + 5px); */
     background-color: #fff;
-    border: 1px solid #babec5;
+    /* border: 1px solid #babec5; */
     display: block;
     width: 100%;
     z-index: 1;

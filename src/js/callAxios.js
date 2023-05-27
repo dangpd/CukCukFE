@@ -9,12 +9,12 @@ async function callAPI(method, url, data) {
     })
       .then(response => {
         // Xử lí dữ liệu response tại đây (nếu cần)
-        console.log(response.data);
+        // console.log(response.data);
         resolve(response.data);
       })
       .catch(error => {
         // Xử lí lỗi tại đây
-        console.error(error);
+        // console.error(error);
         reject(error);
       });
   });

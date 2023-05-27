@@ -24,7 +24,7 @@
         </div>
 
         <!-- :style="styleValHide" -->
-        <div v-show="isShowListData" ref="selectBoxHidden" class="select-box-hidden" style="top: 0; left: 0">
+        <div v-show="isShowListData" ref="selectBoxHidden" class="select-box-hidden" style="top: 0; left: 0;">
             <button v-if="fieldListHide.length > 1" class="select-box-title">
                 <div v-for="(showItem, index) in fieldListHide" :key="index" class="selecbox-show-list-item"
                     :style="'width: ' + showItem.width + '%'">
@@ -344,7 +344,7 @@ export default {
          * CreatedBy: NDCHIEN (29/9/2022)
          */
         clickAddSelect() {
-            this.$emit('showBoxAddSelect', true);
+            this.$emit('showBoxAddSelect');
         },
 
         /**

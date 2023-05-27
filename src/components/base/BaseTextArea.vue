@@ -38,7 +38,7 @@ textarea {
 }
 
 #area:focus {
-  border-color: #019160;
+  border-color: #0072bc;
   outline: none;
 }
 </style>

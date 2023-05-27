@@ -429,7 +429,7 @@ export default {
 .info_title_unit {
   height: 30px;
   background-color: rgb(233, 233, 233);
-  padding: 0 8px;
+  padding: 0 2px;
   display: flex;
   align-items: center;
   margin-bottom: 8px;
