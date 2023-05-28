@@ -3,56 +3,16 @@
     <BaseContentTitleVue :title="titleF"></BaseContentTitleVue>
     <div class="table">
       <div class="material_function">
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-add"
-          colorIcon="#2281c1"
-          val="Thêm"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="addForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-copy"
-          colorIcon="#2281c1"
-          val="Nhân bản"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="duplicateForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-pen-to-square"
-          colorIcon="#2281c1"
-          val="Sửa"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="updateForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-xmark"
-          colorIcon="red"
-          val="Xóa"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="deleteItem"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-rotate"
-          colorIcon="#2281c1"
-          val="Nạp"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="reloadTable"
-        />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm"
+          styleCss="padding:0 8px;cursor:pointer" @click="addForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-copy" colorIcon="#2281c1"
+          val="Nhân bản" styleCss="padding:0 8px;cursor:pointer" @click="duplicateForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-pen-to-square" colorIcon="#2281c1"
+          val="Sửa" styleCss="padding:0 8px;cursor:pointer" @click="updateForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
+          styleCss="padding:0 8px;cursor:pointer" @click="deleteItem" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
+          val="Nạp" styleCss="padding:0 8px;cursor:pointer" @click="reloadTable" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
@@ -64,11 +24,7 @@
                   Mã nguyên vật liệu
                 </div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="materialCode"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="materialCode" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 220px">
@@ -76,31 +32,19 @@
                   Tên nguyên vật liệu
                 </div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="materialName"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="materialName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 180px">
                 <div style="margin-top: 8px; font-weight: 100">Tính chất</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="feature"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="feature" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">Đơn vị tính</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="conversionUnitName"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="conversionUnitName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 170px">
@@ -108,21 +52,13 @@
                   Nhóm nguyên vật liệu
                 </div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="categoryName"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="categoryName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">Diễn giải</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="description"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="description" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="width: 100px">
@@ -130,36 +66,22 @@
                   Ngừng theo dõi
                 </div>
                 <div style="display: flex; margin: 8px 0">
-                  <BaseSelectBoxDown
-                    :data="[
-                      { status: 'Có', value: '2' },
-                      { status: 'Không', value: '1' },
-                    ]"
-                    :style="`background-color: #fff;width:150px`"
-                    fieldNameShow="status"
-                    fieldNameValue="value"
-                    fieldName="status"
-                    :setData="
-                      dataFilter.find((item) => item.field == 'status').value
-                    "
-                    @getValue="changeFilterStatus"
-                    :fieldListHide="[{ field: 'status' }]"
-                  >
+                  <BaseSelectBoxDown :data="[
+                    { status: 'Có', value: '2' },
+                    { status: 'Không', value: '1' },
+                  ]" :style="`background-color: #fff;width:150px`" fieldNameShow="status" fieldNameValue="value"
+                    fieldName="status" :setData="dataFilter.find((item) => item.field == 'status').value
+                      " @getValue="changeFilterStatus" :fieldListHide="[{ field: 'status' }]">
                   </BaseSelectBoxDown>
                 </div>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(item, index) in dataTable"
-              :key="index"
-              @dblclick="dbUpdateForm(item)"
-              @click="trClick(item)"
+            <tr v-for="(item, index) in dataTable" :key="index" @dblclick="dbUpdateForm(item)" @click="trClick(item)"
               :class="{
                 'row-selected': dataSelceted == item,
-              }"
-            >
+              }">
               <td class="text-align-left">{{ item.materialCode }}</td>
               <td class="text-align-left">{{ item.materialName }}</td>
               <td class="text-align-left">{{ item.feature }}</td>
@@ -167,12 +89,8 @@
               <td class="text-align-left">{{ item.categoryName }}</td>
               <td class="text-align-left">{{ item.description }}</td>
               <td class="text-align-center" style="align-items: center">
-                <BaseCheckBox
-                  class="checkbox_table_status"
-                  disable
-                  :modelCheckbox="item.status == '2'"
-                  :value="item.status"
-                />
+                <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status == '2'"
+                  :value="item.status" />
               </td>
             </tr>
           </tbody>
@@ -183,80 +101,32 @@
         </div>
       </div>
       <div class="table__paging">
-        <BaseContentButtom
-          :totalCount="totalRecord"
-          :totalPage="totalPage"
-          ref="pageNumber"
-          @getDataNumberTable="getDataNumberTable"
-          @reloadAll="reloadTable"
-        ></BaseContentButtom>
+        <BaseContentButtom :totalCount="totalRecord" :totalPage="totalPage" ref="pageNumber"
+          @getDataNumberTable="getDataNumberTable" @reloadAll="reloadTable"></BaseContentButtom>
       </div>
     </div>
-    <TheFormMaterial
-      v-if="showForm"
-      @onClose="showForm = false"
-      :id="id"
-      :type="type"
-      :reloadForm="reloadForm"
-      @saveDataSucces="saveDataSucces"
-      @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail"
-      @getNewForm="getNewForm"
-      @showFormUnit="showFormUnits"
-      @showFormStock="showFormStocks"
-      @showFormCategory="showFormCategorys"
-    ></TheFormMaterial>
-    <TheFormUnit
-      v-if="showFormUnit"
-      @onClose="showFormUnit = false"
-      :id="idUnit"
-      :type="typeUnit"
-      @saveDataSucces="saveDataSucces"
-      @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail"
-      @getNewForm="getNewForm"
-    ></TheFormUnit>
-    <TheFormStock
-      v-if="showFormStock"
-      @onClose="showFormStock = false"
-      :id="idStock"
-      :type="typeStock"
-      @saveDataSucces="saveDataSucces"
-      @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail"
-      @getNewForm="getNewForm"
-    ></TheFormStock>
-    <TheFormMaterialCategory
-      v-if="showFormCategory"
-      @onClose="showFormCategory = false"
-      :id="idCategory"
-      :type="typeCategory"
-      @saveDataSucces="saveDataSucces"
-      @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail"
-      @getNewForm="getNewForm"
-    ></TheFormMaterialCategory>
-    <BaseToast
-      v-if="toast.isShowToast"
-      :icon="toast.iconToast"
-      :message="toast.messageToast"
-      @closeToast="closeToastItem()"
-    ></BaseToast>
-    <BasePopUp
-      v-if="popup.isShowPopup"
-      :message="popup.messagePopup"
-      :type="popup.typePopup"
-      @closePopup="customPopup()"
-      @clickWarningDeleteYes="popup.callbackFunc.callbackWarningDeleteYes"
-    />
+    <TheFormMaterial v-if="showForm" @onClose="showForm = false" :id="id" :type="type" :reloadForm="reloadForm"
+      @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess"
+      @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm" @showFormUnit="showFormUnits"
+      @showFormStock="showFormStocks" @showFormCategory="showFormCategorys"></TheFormMaterial>
+    <TheFormUnit v-if="showFormUnit" @onClose="showFormUnit = false" :id="idUnit" :type="typeUnit"
+      @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess"
+      @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm"></TheFormUnit>
+    <TheFormStock v-if="showFormStock" @onClose="showFormStock = false" :id="idStock" :type="typeStock"
+      @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess"
+      @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm"></TheFormStock>
+    <TheFormMaterialCategory v-if="showFormCategory" @onClose="showFormCategory = false" :id="idCategory"
+      :type="typeCategory" @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccess" @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm">
+    </TheFormMaterialCategory>
+    <BaseToast v-if="toast.isShowToast" :icon="toast.iconToast" :message="toast.messageToast"
+      @closeToast="closeToastItem()"></BaseToast>
+    <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup()"
+      @clickWarningDeleteYes="popup.callbackFunc.callbackWarningDeleteYes" />
   </div>
 </template>
       
-    <script>
+<script>
 import BaseContentTitleVue from "../base/BaseContentTitle.vue";
 import Resource from "../../js/resource";
 import BaseFilterSearch from "../base/BaseFilterSearch.vue";
@@ -339,10 +209,10 @@ export default {
         messagePopup: "", // nội dung popup
         typePopup: "", // loại popup
         callbackFunc: {
-          callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
+          callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
         },
       },
-      reloadForm:false,
+      reloadForm: false,
     };
   },
   methods: {
@@ -703,15 +573,15 @@ export default {
   },
   watch: {
     reloadPage(newVal) {
-      if (newVal) {
+      if (newVal == true) {
         this.getPaging(
           this.pageSize,
           this.pageChoice,
           this.sort,
           this.dataFilter
         );
+        this.reloadPage = false;
       }
-      this.reloadPage = false;
     },
     pageSize(newVal) {
       this.pageSize = newVal;
