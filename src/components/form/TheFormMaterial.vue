@@ -3,8 +3,11 @@
     <div class="form_detail_material">
       <div class="form_title">
         {{ this.title }}
-        <i class="fa-solid fa-xmark" @click="btnOnExit"
-          style="border: 1px solid white; padding: 2px 4px; border-radius: 50%"></i>
+        <i
+          class="fa-solid fa-xmark"
+          @click="btnOnExit"
+          style="border: 1px solid white; padding: 2px 4px; border-radius: 50%"
+        ></i>
       </div>
       <div class="content_add_material">
         <div class="group">
@@ -13,29 +16,56 @@
               <div class="add_material_name">
                 Mã <span style="color: red">(*)</span>
               </div>
-              <BaseInput style="width: 200px" v-model="dataForm.material.materialCode" :required="true" ref="materialCode"
-                :messError="materialCodeNotEmpty" />
+              <BaseInput
+                style="width: 200px"
+                v-model="dataForm.material.materialCode"
+                :required="true"
+                ref="materialCode"
+                :messError="materialCodeNotEmpty"
+              />
             </div>
             <div class="add_material_item">
               <div class="add_material_name">
                 Tính chất <span style="color: red">(*)</span>
               </div>
-              <BaseInput style="width: 200px" v-model="dataForm.material.feature" :required="true" ref="feature"
-                :messError="featureNotEmpty" />
+              <BaseInput
+                style="width: 200px"
+                v-model="dataForm.material.feature"
+                :required="true"
+                ref="feature"
+                :messError="featureNotEmpty"
+              />
             </div>
             <div class="add_material_item">
               <div class="add_material_name">
                 ĐVT <span style="color: red">(*)</span>
               </div>
-              <BaseSelectBoxDown :data="listUnit" v-model:setData="dataForm.material.conversionUnitId" addSelect
-                addSelectIcon="fa-solid fa-plus" addSelectColor="#2281c1" width="100px" ref="convertionUnit"
-                fieldNameShow="conversionUnitName" fieldNameValue="conversionUnitId" fieldName="conversionUnitName"
-                :messError="unitIDNotEmpty" required :fieldListHide="[{ field: 'conversionUnitName' }]"
-                @showBoxAddSelect="showBoxAddUnit" />
+              <BaseSelectBoxDown
+                :data="listUnit"
+                v-model:setData="dataForm.material.conversionUnitId"
+                addSelect
+                addSelectIcon="fa-solid fa-plus"
+                addSelectColor="#2281c1"
+                width="100px"
+                ref="convertionUnit"
+                fieldNameShow="conversionUnitName"
+                fieldNameValue="conversionUnitId"
+                fieldName="conversionUnitName"
+                :messError="unitIDNotEmpty"
+                required
+                :fieldListHide="[{ field: 'conversionUnitName' }]"
+                @showBoxAddSelect="showBoxAddUnit"
+                styleValHide="top: calc(100% + 5px)"
+                focusFirstData
+              />
             </div>
             <div class="add_material_item">
               <div class="add_material_name">Hạn sử dụng</div>
-              <BaseInput style="width: 200px" v-model="dataForm.material.expiryDate" :required="true" ref="expiryDate" />
+              <BaseInput
+                style="width: 200px"
+                v-model="dataForm.material.expiryDate"
+                ref="expiryDate"
+              />
             </div>
           </div>
           <div class="group2">
@@ -43,38 +73,74 @@
               <div class="add_material_name">
                 Tên <span style="color: red">(*)</span>
               </div>
-              <BaseInput style="width: 200px" v-model="dataForm.material.materialName" :required="true" ref="materialName"
-                :messError="materialNameNotEmpty" />
+              <BaseInput
+                style="width: 200px"
+                v-model="dataForm.material.materialName"
+                :required="true"
+                ref="materialName"
+                :messError="materialNameNotEmpty"
+              />
             </div>
             <div class="add_material_item">
               <div class="add_material_name">Nhóm NVL</div>
-              <BaseSelectBoxDown :data="listCategory" v-model:setData="dataForm.material.categoryId" addSelect
-                addSelectIcon="fa-solid fa-plus" addSelectColor="#2281c1" width="100px" fieldNameShow="categoryName"
-                fieldNameValue="categoryID" fieldName="categoryName" :fieldListHide="[{ field: 'categoryName' }]"
-                @showBoxAddSelect="showBoxAddCategory"></BaseSelectBoxDown>
+              <BaseSelectBoxDown
+                :data="listCategory"
+                v-model:setData="dataForm.material.categoryId"
+                addSelect
+                addSelectIcon="fa-solid fa-plus"
+                addSelectColor="#2281c1"
+                width="100px"
+                fieldNameShow="categoryName"
+                fieldNameValue="categoryID"
+                fieldName="categoryName"
+                :fieldListHide="[{ field: 'categoryName' }]"
+                @showBoxAddSelect="showBoxAddCategory"
+                styleValHide="top: calc(100% + 5px)"
+              ></BaseSelectBoxDown>
             </div>
             <div class="add_material_item">
               <div class="add_material_name">Kho ngầm định</div>
-              <BaseSelectBoxDown :data="listStock" addSelect v-model:setData="dataForm.material.stockId"
-                addSelectIcon="fa-solid fa-plus" addSelectColor="#2281c1" width="200px" ref="stockId"
-                fieldNameShow="stockName" fieldNameValue="stockId" fieldName="stockId" :fieldListHide="[
+              <BaseSelectBoxDown
+                :data="listStock"
+                addSelect
+                v-model:setData="dataForm.material.stockId"
+                addSelectIcon="fa-solid fa-plus"
+                addSelectColor="#2281c1"
+                width="200px"
+                ref="stockId"
+                fieldNameShow="stockName"
+                fieldNameValue="stockId"
+                fieldName="stockId"
+                :fieldListHide="[
                   { field: 'stockCode', title: 'Mã kho' },
                   { field: 'stockName', title: 'Tên kho' },
-                ]" focusFirstData styleValHide="top: calc(100% + 5px)" @showBoxAddSelect="showBoxAddStock" />
+                ]"
+                focusFirstData
+                styleValHide="top: calc(100% + 5px)"
+                @showBoxAddSelect="showBoxAddStock"
+              />
             </div>
             <div class="add_material_item">
               <div class="add_material_name">SL tồn tối thiểu</div>
-              <BaseInput style="width: 200px" v-model="dataForm.material.inventoryNumber" :type="typeInput"
-                :required="true" ref="inventoryNumber" />
+              <BaseInput
+                style="width: 200px"
+                v-model="dataForm.material.inventoryNumber"
+                :type="typeInput"
+                :required="true"
+                ref="inventoryNumber"
+              />
             </div>
           </div>
         </div>
         <div class="add_material_item2">
           <div class="add_material_name">Ghi chú</div>
-          <BaseTextArea :style="`width: 540px;
+          <BaseTextArea
+            :style="`width: 540px;
                     height: 60px;
                     padding-left: 8px;
-                    padding-top: 8px;`" v-model="dataForm.material.description" />
+                    padding-top: 8px;`"
+            v-model="dataForm.material.description"
+          />
         </div>
         <div class="info_w100 info_unit">
           <div class="info_title_unit">
@@ -82,12 +148,16 @@
             <!-- <span>Nhà cung cấp</span> -->
           </div>
           <div class="table_unit">
-            <table class="m-table-material" style="
+            <table
+              class="m-table-material"
+              style="
                 font-weight: 100;
                 border-collapse: collapse;
                 line-height: 30px;
                 border-color: #bbb;
-              " border="1">
+              "
+              border="1"
+            >
               <thead style="font-weight: 100">
                 <th style="width: 40px">STT</th>
                 <th style="width: 150px">Đơn vị chuyển đổi</th>
@@ -96,33 +166,73 @@
                 <th style="width: 200px">Mô tả</th>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in dataForm.listConversionUnits" @click="trClick(item)" :key="index" :class="{
-                  'row-selected': dataSelcetedDelete == item,
-                }">
+                <tr
+                  v-for="(item, index) in dataForm.listConversionUnits"
+                  @click="trClick(item)"
+                  :key="index"
+                  :class="{
+                    'row-selected': dataSelcetedDelete == item,
+                  }"
+                >
                   <td>{{ index + 1 }}</td>
                   <td style="max-width: 150px; max-height: 30px">
-                    <BaseSelectBoxDown :style="`max-width: 100%;max-height:100%`" :data="listUnit"
-                      v-model:setData="item.unitId" addSelect addSelectIcon="fa-solid fa-plus" addSelectColor="#2281c1"
-                      width="150px" showBorder ref="convertionUnit" fieldNameShow="conversionUnitName"
-                      fieldNameValue="conversionUnitId" fieldName="conversionUnitId" :messError="unitIDNotEmpty" required
-                      :fieldListHide="[{ field: 'conversionUnitName' }]" @showBoxAddSelect="showBoxAddUnit" />
+                    <BaseSelectBoxDown
+                      :style="`max-width: 100%;max-height:100%`"
+                      :data="listUnit"
+                      v-model:setData="item.unitId"
+                      addSelect
+                      addSelectIcon="fa-solid fa-plus"
+                      addSelectColor="#2281c1"
+                      width="150px"
+                      showBorder
+                      ref="convertionUnit"
+                      fieldNameShow="conversionUnitName"
+                      fieldNameValue="conversionUnitId"
+                      fieldName="conversionUnitId"
+                      :messError="unitIDNotEmpty"
+                      required
+                      :fieldListHide="[{ field: 'conversionUnitName' }]"
+                      @showBoxAddSelect="showBoxAddUnit"
+                      styleValHide="top: calc(100% + 5px)"
+                      @getValue="getDataUnitConversion"
+                    />
                   </td>
                   <td style="max-height: 30px">
-                    <BaseInput v-model="item.conversionRate" :style="`max-width: 100%;border:none`" type="float"
-                      ref="conversionRate" textRight lengthAfterComma="2" styleVal="height:30px;text-align:right"
-                      v-model:value="item.conversionRate" />
+                    <BaseInput
+                      v-model="item.conversionRate"
+                      :style="`max-width: 100%;border:none`"
+                      type="float"
+                      ref="conversionRate"
+                      textRight
+                      lengthAfterComma="2"
+                      styleVal="height:30px;text-align:right"
+                      v-model:value="item.conversionRate"
+                    />
                   </td>
                   <td style="max-width: 150px">
-                    <BaseSelectBoxDown :data="[
-                      { calculation: '*', value: 1 },
-                      {
-                        calculation: '/',
-                        value: 2,
-                      },
-                    ]" :style="`max-width: 100%;`" addSelect addSelectIcon="fa-solid fa-plus" addSelectColor="#2281c1"
-                      v-model:setData="item.calculation" ref="calculation" width="100px" showBorder
-                      fieldNameShow="calculation" fieldNameValue="value" fieldName="calculation"
-                      :fieldListHide="[{ field: 'calculation' }]" focusFirstData styleValHide="top: calc(100% + 3px)">
+                    <BaseSelectBoxDown
+                      :data="[
+                        { calculation: '*', value: 1 },
+                        {
+                          calculation: '/',
+                          value: 2,
+                        },
+                      ]"
+                      :style="`max-width: 100%;`"
+                      addSelect
+                      addSelectIcon="fa-solid fa-plus"
+                      addSelectColor="#2281c1"
+                      v-model:setData="item.calculation"
+                      ref="calculation"
+                      width="100px"
+                      showBorder
+                      fieldNameShow="calculation"
+                      fieldNameValue="value"
+                      fieldName="calculation"
+                      :fieldListHide="[{ field: 'calculation' }]"
+                      focusFirstData
+                      styleValHide="top: calc(100% + 5px)"
+                    >
                     </BaseSelectBoxDown>
                   </td>
                   <td>
@@ -139,37 +249,74 @@
             </table>
           </div>
           <div class="func_unit">
-            <BaseButtonIcon icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm dòng" styleCss="padding: 2px 16px"
-              @click="addNewUnitMaterial" />
-            <BaseButtonIcon icon="fa-solid fa-close" colorIcon="red" styleCss="padding: 2px 16px;margin-left: 5px"
-              val="Xóa dòng" @click="deleteNewUnitMaterial" />
+            <BaseButtonIcon
+              icon="fa-solid fa-add"
+              colorIcon="#2281c1"
+              val="Thêm dòng"
+              styleCss="padding: 2px 16px"
+              @click="addNewUnitMaterial"
+            />
+            <BaseButtonIcon
+              icon="fa-solid fa-close"
+              colorIcon="red"
+              styleCss="padding: 2px 16px;margin-left: 5px"
+              val="Xóa dòng"
+              @click="deleteNewUnitMaterial"
+            />
           </div>
         </div>
         <div class="add_unit_func">
-          <div style="
+          <div
+            style="
               display: flex;
               align-items: center;
               justify-content: space-around;
               width: 100%;
-            ">
-            <BaseButtonIcon icon="fa-solid  fa-circle-question" colorIcon="#2281c1" val="Giúp"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" />
-            <BaseButtonIcon icon="fa-sharp fa-solid fa-floppy-disk" colorIcon="#2281c1"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" val="Cất" @click="saveAndClose" />
-            <BaseButtonIcon icon="fa-solid fa-file-export" colorIcon="#2281c1"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" val="Cất và thêm" @click="saveAndAdd" />
-            <BaseButtonIcon icon="fa-regular fa-circle-xmark" colorIcon="red" val="Hủy"
-              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer" @click="btnOnCancel" />
+            "
+          >
+            <BaseButtonIcon
+              icon="fa-solid  fa-circle-question"
+              colorIcon="#2281c1"
+              val="Giúp"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+            />
+            <BaseButtonIcon
+              icon="fa-sharp fa-solid fa-floppy-disk"
+              colorIcon="#2281c1"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+              val="Cất"
+              @click="saveAndClose"
+            />
+            <BaseButtonIcon
+              icon="fa-solid fa-file-export"
+              colorIcon="#2281c1"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+              val="Cất và thêm"
+              @click="saveAndAdd"
+            />
+            <BaseButtonIcon
+              icon="fa-regular fa-circle-xmark"
+              colorIcon="red"
+              val="Hủy"
+              styleCss="margin-right: 5px;padding:4px 8px;cursor:pointer"
+              @click="btnOnCancel"
+            />
           </div>
         </div>
       </div>
     </div>
     <BaseLoading v-if="loadingForm"></BaseLoading>
-    <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup"
+    <BasePopUp
+      v-if="popup.isShowPopup"
+      :message="popup.messagePopup"
+      :type="popup.typePopup"
+      @closePopup="customPopup"
       @processWhenClose="popup.callbackFun.callbackProcessWhenClose"
       @clickWarningDeleteYes="popup.callbackFun.callbackWarningDeleteYes"
-      @confirmPopup="popup.callbackFun.callbackConfirmPopup" @clickQuestionNo="popup.callbackFun.callbackQuestionNo"
-      @clickQuestionYes="popup.callbackFun.callbackQuestionYes" />
+      @confirmPopup="popup.callbackFun.callbackConfirmPopup"
+      @clickQuestionNo="popup.callbackFun.callbackQuestionNo"
+      @clickQuestionYes="popup.callbackFun.callbackQuestionYes"
+    />
   </div>
 </template>
       
@@ -261,11 +408,11 @@ export default {
         messagePopup: "", // tiêu đề popup
         typePopup: "", // loại popup
         callbackFun: {
-          callbackProcessWhenClose: () => { }, // Xử lý khi đóng popup
-          callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
-          callbackConfirmPopup: () => { }, // xử lý khi click đồng ý popup warning
-          callbackQuestionNo: () => { }, // xử lý khi click không popup question
-          callbackQuestionYes: () => { }, // xử lý khi click có popup question
+          callbackProcessWhenClose: () => {}, // Xử lý khi đóng popup
+          callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
+          callbackConfirmPopup: () => {}, // xử lý khi click đồng ý popup warning
+          callbackQuestionNo: () => {}, // xử lý khi click không popup question
+          callbackQuestionYes: () => {}, // xử lý khi click có popup question
         },
       },
       listUnit: [],
@@ -298,7 +445,7 @@ export default {
             conversionRate: 1,
             calculation: 1,
           });
-          console.log(this.dataForm.listConversionUnits);
+          // console.log(this.dataForm.listConversionUnits);
         }
       } catch (error) {
         console.log(error);
@@ -306,22 +453,79 @@ export default {
     },
     trClick(data) {
       this.dataSelcetedDelete = data;
-      console.log(data);
+      // console.log(data);
       // console.log("data", this.dataSelceted);
+    },
+
+    getDataUnitConversion(data) {
+      let position = -1;
+
+      const myPromise = new Promise((resolve) => {
+        setTimeout(() => {
+          console.log(this.dataForm.listConversionUnits);
+          let index = this.dataForm.listConversionUnits.findIndex((e) => {
+            return e.unitId == data.val;
+          });
+          resolve(index); // Đưa resolve(index) vào trong hàm setTimeout
+        }, 0);
+      });
+      // Check có trùng với đơn vị tính ban đầu không
+      if (data.val == this.dataForm.material.conversionUnitId) {
+        // Show popup
+        this.customPopup(
+          true,
+          Resource.ERROR_VALIDATE_FE.DuplicateUnit,
+          process.env.VUE_APP_POPUP_WARNING
+        );
+
+        myPromise.then((index) => {
+          position = index;
+          this.dataForm.listConversionUnits[position].unitId = "";
+        });
+      }
+
+      // Kiểm tra đơn vị chuyển đổi thêm vào đã tồn tại chưa
+      var checkDuplicateUnit = this.dataForm.listConversionUnits.some(
+        (item, index) => {
+          if (item.unitId && item.conversionRate && item.calculation) {
+            console.log(index);
+            return item.unitId == data.val;
+          }
+          return false;
+        }
+      );
+      if (checkDuplicateUnit) {
+        this.customPopup(
+          true,
+          Resource.ERROR_VALIDATE_FE.DuplicateConversionUnit,
+          process.env.VUE_APP_POPUP_WARNING
+        );
+        myPromise.then((index) => {
+          position = index;
+          console.log(index);
+          this.dataForm.listConversionUnits[position].unitId = "";
+        });
+      }
     },
     /**
      * Xóa đơn vị chuyển đổi
      */
     deleteNewUnitMaterial() {
       try {
-        if (this.dataForm.listConversionUnits && this.dataForm.listConversionUnits != null) {
+        if (
+          this.dataForm.listConversionUnits &&
+          this.dataForm.listConversionUnits != null
+        ) {
           // Xóa hàng được chọn
           // console.log(this.dataSelcetedDelete);
           if (this.dataSelcetedDelete === null) {
             // Nếu không có hàng được chọn xóa phần tử cuối cùng
             console.log(this.dataForm.listConversionUnits.length);
             if (this.dataForm.listConversionUnits.length >= 0) {
-              this.dataForm.listConversionUnits.splice(this.dataForm.listConversionUnits.length - 1, 1);
+              this.dataForm.listConversionUnits.splice(
+                this.dataForm.listConversionUnits.length - 1,
+                1
+              );
             }
           } else {
             // Tìm index của nó trong mảng
