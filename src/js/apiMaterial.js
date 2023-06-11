@@ -50,7 +50,7 @@ class Material {
     updatedRecord(id) {
         return `${this.getAll()}/${id}`;
     }
-    
+
     /**
      * Xóa bản ghi theo id
      * Created by : DangPD(20/3/2023)
@@ -59,6 +59,42 @@ class Material {
      */
     deleteRecord(id) {
         return `${this.getAll()}/${id}`;
+    }
+
+    /**
+     * Lấy mã code mới nhất
+     * Created by : DangPD(20/3/2023)
+     * @returns Mã mới
+     */
+    getMaxCode() {
+        return `${this.getAll()}/GetMaxCode`;
+    }
+
+    /**
+     * Xuất file excel
+     * Created by : DangPD(20/3/2023)
+     * @returns File
+     */
+    getExcel() {
+        return `${this.getAll()}/ExportExcel`;
+    }
+
+    /**
+     * Import excel
+     * Created by : DangPD(20/3/2023)
+     * @returns Bản ghi
+     */
+    ImportExcel() {
+        return `${this.getAll()}/ImportExcel`;
+    }
+
+    /**
+     * Insert nhiều bản ghi
+     * Created by : DangPD(20/3/2023)
+     * @returns Danh sách bản ghi
+     */
+    InsertExcel(){
+        return `${this.getAll()}/InsertExcel`;
     }
 }
 const materialService = new Material();

@@ -10,6 +10,7 @@
             :value="valCheckbox || ''"
             @change="getValue"
             :disabled="disable"
+            @dblclick.prevent
         />
         <span class="checkmark">
             <i v-show="modelCb" class="fa-solid fa-check"></i>
@@ -37,7 +38,7 @@ export default {
         /**
          * set checkbox
          * @param {boolean} setCb
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         setCheckbox1() {
             // this.modelCheckbox = true;
@@ -45,7 +46,7 @@ export default {
 
         /**
          * Trả giá trị về cho parent 
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         getValue() {
             // 

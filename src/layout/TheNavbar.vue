@@ -37,7 +37,7 @@
         <div class="background_image icon menu"></div>
         Thực đơn
       </div>
-      <div class="nav_item" @click="showSubmenu">
+      <div class="nav_item selectnav" @click="showSubmenu">
         <div class="background_image icon category"></div>
         <div>Danh mục</div>
       </div>
@@ -63,22 +63,38 @@
         <div class="background_image icon itemsubmenu"></div>
         NGUYÊN VẬT LIỆU
       </div>
-      <div class="submenu-item">
+      <div class="submenu-item" style="display: flex;">
+        <div class="children">
+          <div class="line1"></div>
+          <div class="line2"></div>
+        </div>
         <div class="itemtext" @click="clickMaterial">
           Nguyên vật liệu
         </div>
       </div>
-      <div class="submenu-item">
+      <div class="submenu-item" style="display: flex;">
+        <div class="children">
+          <div class="line1"></div>
+          <div class="line2"></div>
+        </div>
         <div class="itemtext" @click="clickMaterialCategory">
           Nhóm nguyên vật liệu
         </div>
       </div>
-      <div class="submenu-item">
+      <div class="submenu-item" style="display: flex;">
+        <div class="children">
+          <div class="line1"></div>
+          <div class="line2"></div>
+        </div>
         <div class="itemtext" @click="clickStock">
           Kho
         </div>
       </div>
-      <div class="submenu-item">
+      <div class="submenu-item" style="display: flex;">
+        <div class="children">
+          <div class="line1c"></div>
+          <div class="line2"></div>
+        </div>
         <div class="itemtext" @click="clickUnit">
           Đơn vị tính
         </div>
@@ -102,26 +118,26 @@ export default {
     },
     showFormMaterial() {
     },
-    clickMaterial(){
+    clickMaterial() {
       this.$router.push('/');
       this.showMenu = false;
     },
 
-    clickMaterialCategory(){
+    clickMaterialCategory() {
       this.$router.push('/materialCategory');
       this.showMenu = false;
     },
 
-    clickStock(){
+    clickStock() {
       this.$router.push('/stock');
       this.showMenu = false;
     },
 
-    clickUnit(){
+    clickUnit() {
       this.$router.push('/unit');
       this.showMenu = false;
     }
-    
+
   },
   data() {
     return {
@@ -163,6 +179,10 @@ nav {
 
 .overview {
   background-position: 0 1px;
+}
+
+.selectnav {
+  background-color: #4389ea;
 }
 
 .report {
@@ -263,6 +283,7 @@ nav {
   display: flex;
   align-items: center;
   margin: 4px 0;
+  line-height: 30px;
 }
 
 .submenu-item {
@@ -275,11 +296,46 @@ nav {
   text-decoration: none;
 }
 
-.submenu-item:hover {
-  width: 140px;
+.itemtext {
+  line-height: 30px;
+  padding: 0 4px;
+  height: 30px;
+  width: auto;
+}
+
+.itemtext:hover {
   background-color: #cfe9fb;
   cursor: pointer;
-  padding: auto;
   border: 1px solid #1482d1;
+}
+
+.children {
+  height: 30px;
+  width: 30px;
+  position: relative;
+}
+
+.line1 {
+  position: absolute;
+  border-right: 1px solid #bbb;
+  top: 1px;
+  right: 22px;
+  height: 30px;
+}
+
+.line2 {
+  border-bottom: 1px solid #bbb;
+  position: absolute;
+  width: 16px;
+  left: 8px;
+  top: 15px;
+}
+
+.line1c {
+  position: absolute;
+  border-right: 1px solid #bbb;
+  top: 1px;
+  right: 22px;
+  height: 15px;
 }
 </style>

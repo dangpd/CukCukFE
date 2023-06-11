@@ -3,56 +3,16 @@
     <BaseContentTitleVue :title="titleF"></BaseContentTitleVue>
     <div class="table">
       <div class="material_function">
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-add"
-          colorIcon="#2281c1"
-          val="Thêm"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="addForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-copy"
-          colorIcon="#2281c1"
-          val="Nhân bản"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="duplicateForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-pen-to-square"
-          colorIcon="#2281c1"
-          val="Sửa"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="updateForm"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-xmark"
-          colorIcon="red"
-          val="Xóa"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="deleteItem"
-        />
-        <BaseButtonIcon
-          noneBg
-          noneBorder
-          class="btn-function-main"
-          icon="fa-solid fa-rotate"
-          colorIcon="#2281c1"
-          val="Nạp"
-          styleCss="padding:0 8px;cursor:pointer"
-          @click="reloadTable"
-        />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm"
+          styleCss="" funC @click="addForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-copy" colorIcon="#2281c1"
+          val="Nhân bản" styleCss="" funC @click="duplicateForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-pen-to-square" colorIcon="#2281c1"
+          val="Sửa" styleCss="" funC @click="updateForm" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
+          styleCss="" funC @click="deleteItem" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
+          val="Nạp" styleCss="" funC @click="reloadTable" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
@@ -62,31 +22,19 @@
               <th style="min-width: 300px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Mã kho</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="stockCode"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="stockCode" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 300px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Tên kho</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="stockName"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="stockName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 300px; border: 1px solid #bbb">
                 <div style="margin-top: 8px; font-weight: 100">Địa chỉ</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch
-                    type="string"
-                    field="address"
-                    @changeFilter="changeFilter"
-                  />
+                  <BaseFilterSearch type="string" field="address" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="width: 150px; border: 1px solid #bbb">
@@ -94,49 +42,28 @@
                   Ngừng theo dõi
                 </div>
                 <div style="display: flex; margin: 8px 0">
-                  <BaseSelectBoxDown
-                    :data="[
-                      { status: 'Có', value: '2' },
-                      { status: 'Không', value: '1' },
-                    ]"
-                    :style="`background-color: #fff;width:150px`"
-                    fieldNameShow="status"
-                    fieldNameValue="value"
-                    fieldName="status"
-                    :setData="
-                      dataFilter.find((item) => item.field == 'status').value
-                    "
-                    @getValue="changeFilterStatus"
-                    :fieldListHide="[{ field: 'status' }]"
-                  >
+                  <BaseSelectBoxDown :data="[
+                    { status: 'Có', value: '2' },
+                    { status: 'Không', value: '1' },
+                  ]" :style="`background-color: #fff;width:150px`" fieldNameShow="status" fieldNameValue="value"
+                    fieldName="status" :setData="dataFilter.find((item) => item.field == 'status').value
+                      " @getValue="changeFilterStatus" :fieldListHide="[{ field: 'status' }]">
                   </BaseSelectBoxDown>
                 </div>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(item, index) in dataTable"
-              :key="index"
-              @dblclick="dbUpdateForm(item)"
-              @click="trClick(item)"
+            <tr v-for="(item, index) in dataTable" :key="index" @dblclick="dbUpdateForm(item)" @click="trClick(item)"
               :class="{
                 'row-selected': dataSelceted == item,
-              }"
-            >
-              <td class="text-align-left">{{ item.stockCode }}</td>
-              <td class="text-align-left">{{ item.stockName }}</td>
-              <td class="text-align-left">{{ item.address }}</td>
-              <td
-                class="text-align-center"
-                style="z-index: 0"
-              >
-                <BaseCheckBox
-                  class="checkbox_table_status"
-                  disable
-                  :modelCheckbox="item.status == '2'"
-                  :value="item.status"
-                />
+              }">
+              <td class="text-align-left" :title="item.stockCode">{{ item.stockCode }}</td>
+              <td class="text-align-left" :title="item.stockName">{{ item.stockName }}</td>
+              <td class="text-align-left" :title="item.address">{{ item.address }}</td>
+              <td class="text-align-center" style="z-index: 0">
+                <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status === statusPage"
+                  :value="item.status" />
               </td>
             </tr>
           </tbody>
@@ -147,43 +74,21 @@
         </div>
       </div>
       <div class="table__paging">
-        <BaseContentButtom
-          :totalCount="totalRecord"
-          :totalPage="totalPage"
-          ref="pageNumber"
-          @getDataNumberTable="getDataNumberTable"
-          @reloadAll="reloadTable"
-        ></BaseContentButtom>
+        <BaseContentButtom :totalCount="totalRecord" :totalPage="totalPage" ref="pageNumber"
+          @getDataNumberTable="getDataNumberTable" @reloadAll="reloadTable"></BaseContentButtom>
       </div>
     </div>
-    <TheFormStock
-      v-if="showForm"
-      @onClose="showForm = false"
-      :id="id"
-      :type="type"
-      @saveDataSucces="saveDataSucces"
-      @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail"
-      @getNewForm="getNewForm"
-    ></TheFormStock>
-    <BaseToast
-      v-if="toast.isShowToast"
-      :icon="toast.iconToast"
-      :message="toast.messageToast"
-      @closeToast="closeToastItem()"
-    ></BaseToast>
-    <BasePopUp
-      v-if="popup.isShowPopup"
-      :message="popup.messagePopup"
-      :type="popup.typePopup"
-      @closePopup="customPopup()"
-      @clickWarningDeleteYes="popup.callbackFunc.callbackWarningDeleteYes"
-    />
+    <TheFormStock v-if="showForm" @onClose="showForm = false" :id="id" :type="type" @saveDataSucces="saveDataSucces"
+      @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess" @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewForm"></TheFormStock>
+    <BaseToast v-if="toast.isShowToast" :icon="toast.iconToast" :message="toast.messageToast"
+      @closeToast="closeToastItem()"></BaseToast>
+    <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup()"
+      @clickWarningDeleteYes="popup.callbackFunc.callbackWarningDeleteYes" />
   </div>
 </template>
     
-  <script>
+<script>
 import BaseContentTitleVue from "../base/BaseContentTitle.vue";
 import Resource from "../../js/resource";
 import BaseFilterSearch from "../base/BaseFilterSearch.vue";
@@ -198,6 +103,8 @@ import BasePopUp from "../base/BasePopUp.vue";
 import { fetchAPI } from "@/js/common";
 import stockService from '@/js/apiStock';
 import TheFormStock from "./TheFormStock.vue";
+import enumMISA from '../../js/enum';
+import errorBE from '../../js/errorBE';
 export default {
   name: "BaseStock",
   props: [""],
@@ -212,7 +119,7 @@ export default {
     BaseToast,
     BasePopUp,
     TheFormStock
-},
+  },
   data() {
     return {
       titleF: Resource.TitleContent.Stock,
@@ -251,12 +158,18 @@ export default {
         messagePopup: "", // nội dung popup
         typePopup: "", // loại popup
         callbackFunc: {
-          callbackWarningDeleteYes: () => {}, // xử lý khi click không popup question
+          callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
         },
       },
+      statusPage: enumMISA.statusPage.Yes
     };
   },
   methods: {
+    /**
+     * Thay đổi giá trị search
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     changeFilter(value) {
       try {
         if (value.filterVal != "") {
@@ -292,7 +205,11 @@ export default {
         console.log(error);
       }
     },
-
+    /**
+     * Load data trang
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getPaging(pageSize, pageChoice, sort, dataFilter) {
       try {
         this.isLoading = true;
@@ -321,7 +238,11 @@ export default {
         console.log(error);
       }
     },
-
+    /**
+     * Thay đổi status
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     changeFilterStatus(value) {
       if (value) {
         // Thông tin gửi lên server search
@@ -343,7 +264,11 @@ export default {
         );
       }
     },
-
+    /**
+     * Reload table
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     reloadTable() {
       this.$refs.pageNumber.pageSize = 20;
       this.$refs.pageNumber.pageChoice = 1;
@@ -362,8 +287,14 @@ export default {
         this.dataFilter
       );
     },
-
+    /**
+     * Thay đổi giá trị số trang
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getDataNumberTable(data) {
+      this.pageSize = data.pageSize;
+      this.pageNumber = data.pageNumber;
       this.getPaging(
         data.pageSize,
         data.pageNumber,
@@ -372,18 +303,30 @@ export default {
       );
       // console.log(data);
     },
-
+    /**
+     * Mở form thêm mới
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     addForm() {
       this.showForm = true;
       this.id = null;
       this.type = Resource.TYPE_FORM.ADD;
     },
-
+    /**
+     * tr click
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     trClick(data) {
       this.dataSelceted = data;
-      console.log("data", this.dataSelceted);
+      // console.log("data", this.dataSelceted);
     },
-
+    /**
+     * Nhân bản
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     duplicateForm() {
       if (this.dataSelceted.stockId) {
         this.showForm = true;
@@ -391,7 +334,11 @@ export default {
         this.type = Resource.TYPE_FORM.DUPLICATE;
       }
     },
-
+    /**
+     * Cập nhật form
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     updateForm() {
       if (this.dataSelceted.stockId) {
         this.showForm = true;
@@ -399,13 +346,21 @@ export default {
         this.type = Resource.TYPE_FORM.UPDATE;
       }
     },
-
+    /**
+     * dbclick form
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     dbUpdateForm(data) {
       this.showForm = true;
       this.id = data.stockId;
       this.type = Resource.TYPE_FORM.UPDATE;
     },
-
+    /**
+     * Xóa 1 phần tử
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     deleteItem() {
       if (this.dataSelceted && this.popup.callbackFunc) {
         // show popup xác nhận xóa
@@ -421,13 +376,16 @@ export default {
             stockService.deleteRecord(this.dataSelceted.stockId),
             Resource.HTTP_METHOD.DELETE,
             (res) => {
-              console.log(res);
-              if (res == Resource.Response.Success) {
+              // console.log(res);
+              if (res == enumMISA.response.Success) {
                 this.customPopup();
                 this.deleteSuccess();
+              } else if (res.moreInfo == errorBE.NotexistOrDeleted) {
+                this.customPopup(true, `${Resource.ToastMessage.NotDelete.TextStock} <${this.dataSelceted.stockCode} - ${this.dataSelceted.stockName}> ${Resource.ToastMessage.NotDelete.AfterText}`, Resource.VUE_APP_POPUP.ERROR);
+                // this.deleteFail();
               } else {
-                this.customPopup();
-                this.deleteFail();
+                this.customPopup(true, Resource.ERROR_BE.Unknow, Resource.VUE_APP_POPUP.ERROR);
+                // this.deleteFail()
               }
             }
           );
@@ -440,7 +398,11 @@ export default {
         );
       }
     },
-
+    /**
+     * Gọi lại form thêm mới 
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getNewForm() {
       this.showForm = true;
       this.id = null;
@@ -567,7 +529,7 @@ export default {
      * @param {Boolean} isShow true- show popup, false - ẩn popup
      * @param {String} message nội dung của popup
      * @param {String} type loại popup
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     customPopup(isShow = false, message = "", type = "") {
       if (this.popup) {
@@ -613,4 +575,6 @@ export default {
 };
 </script>
     
-  <style></style>
+<style>
+@import url(../../css/form/material.css);
+</style>

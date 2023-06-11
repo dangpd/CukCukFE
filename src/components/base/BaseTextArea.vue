@@ -1,6 +1,6 @@
 <template>
   <div>
-    <textarea id="area" :style="style" v-model="value"></textarea>
+    <textarea id="area" :style="style" v-model="value" :tabindex="tabIndex"></textarea>
   </div>
 </template>
 <script>
@@ -14,6 +14,7 @@ export default {
   props: {
     style: [String], // css cho text area
     modelValue: [String, Number], // giá trị của input nhậ từ parent
+    tabIndex: [Number,String]
   },
   methods: {
   },

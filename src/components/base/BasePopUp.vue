@@ -16,15 +16,20 @@
                     <div class="popup-content">{{ message }}</div>
                 </div>
                 <div class="popup-main-bottom">
-                    <div>
-                        <div ref="refFirstWD" @focus="focusLast('btn1WD')" tabindex="0"></div>
-                        <BaseButton ref="btn1WD" val="Hủy" noneBg @click="closePopup" />
+                    <div style="position: absolute;right: 0;">
+                        <!-- <div ref="refFirstWD" @focus="focusLast('btn1WD')" tabindex="0"></div> -->
+                        <BaseButtonIcon class="buttonIcon" val="Có" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                            :autofocus="isFocusWarningDelete" buttonIconForm @click="clickWarningDeleteYes" />
+                        <BaseButtonIcon class="buttonIcon" val="Không" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                            buttonIconForm @click="closePopup" />
+
+                        <!-- <BaseButton ref="btn1WD" style="padding: 4px 10px;" val="Không" @click="closePopup" /> -->
                     </div>
-                    <div>
-                        <BaseButton ref="btn2WD" val="Có" :autofocus="isFocusWarningDelete"
+                    <!-- <div>
+                        <BaseButton ref="btn2WD" style="padding: 4px 10px;" val="Có" :autofocus="isFocusWarningDelete"
                             @click="clickWarningDeleteYes" />
                         <div ref="refLastWD" @focus="focusFirst('btn1WD')" tabindex="0"></div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -47,7 +52,9 @@
                 </div>
                 <div class="popup-main-center"></div>
                 <div class="popup-main-bottom popup-right">
-                    <BaseButton val="Đồng ý" :autofocus="isFocusWarning" @click="clickConfirmPopup" />
+                    <BaseButtonIcon class="buttonIcon" val="Đồng ý" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                        buttonIconForm @click="closePopup" />
+                    <!-- <BaseButton val="Đồng ý" :autofocus="isFocusWarning" @click="closePopup" /> -->
                 </div>
             </div>
         </div>
@@ -68,7 +75,9 @@
                 </div>
                 <div class="popup-main-center"></div>
                 <div class="popup-main-bottom popup-center">
-                    <BaseButton val="Đóng" :autofocus="isFocusError" @click="closePopup" />
+                    <BaseButtonIcon class="buttonIcon" val="Đồng ý" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                        buttonIconForm @click="closePopup" />
+                    <!-- <BaseButton val="Đóng" :autofocus="isFocusError" @click="closePopup" /> -->
                 </div>
             </div>
         </div>
@@ -88,15 +97,23 @@
                     <div class="popup-content">{{ message }}</div>
                 </div>
                 <div class="popup-main-center"></div>
-                <div class="popup-main-bottom">
+                <div class="popup-main-bottom" style="display: flex;justify-content: space-between;">
                     <div>
-                        <div ref="refFirstQ" @focus="focusLast('btn3Q')" tabindex="0"></div>
-                        <BaseButton ref="btn1Q" val="Hủy" noneBg @click="closePopup" />
                     </div>
-                    <div>
-                        <BaseButton ref="btn2Q" val="Không" noneBg @click="clickQuestionNo" />
-                        <BaseButton ref="btn3Q" val="Có" :autofocus="isFocusQuestion" @click="clickQuestionYes" />
-                        <div ref="refLastQ" @focus="focusFirst('btn1Q')" tabindex="0"></div>
+                    <div style="display: flex;">
+                        <!-- <div ref="refFirstQ" @focus="focusLast('btn3Q')" tabindex="0"></div> -->
+                        <BaseButtonIcon class="buttonIcon" val="Có" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                            buttonIconForm @click="clickQuestionYes" />
+                        <BaseButtonIcon class="buttonIcon" val="Không" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                            buttonIconForm @click="clickQuestionNo" />
+                        <BaseButtonIcon class="buttonIcon" val="Hủy" styleCss="width:80px;padding:4px 8px 4px 0px;"
+                            buttonIconForm @click="closePopup" />
+                        <!-- <BaseButton ref="btn3Q" val="Có" style="padding: 4px 10px;" :autofocus="isFocusQuestion"
+                            @click="clickQuestionYes" />
+                        <BaseButton ref="btn2Q" val="Không" style="margin:0 6px;padding: 4px 10px;"
+                            @click="clickQuestionNo" />
+                        <BaseButton ref="btn1Q" val="Hủy" style="padding: 4px 10px;" @click="closePopup" />
+                        <div ref="refLastQ" @focus="focusFirst('btn1Q')" tabindex="0"></div> -->
                     </div>
                 </div>
             </div>
@@ -104,11 +121,11 @@
     </div>
 </template>
 <script>
-import BaseButton from './BaseButton.vue';
+import BaseButtonIcon from './BaseButtonIcon.vue';
 
 export default {
     name: "BasePopUp",
-    components: { BaseButton },
+    components: { BaseButtonIcon },
     data() {
         return {
             isShowWarningDelete: false, // popup cảnh báo xóa
@@ -128,7 +145,7 @@ export default {
     methods: {
         /**
          * Đóng popup
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         closePopup() {
             this.$emit('closePopup');
@@ -137,7 +154,7 @@ export default {
 
         /**
          * Click yes warning delete
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         clickWarningDeleteYes() {
             this.$emit('clickWarningDeleteYes');
@@ -145,7 +162,7 @@ export default {
 
         /**
          * Click đồng ý popup Warning
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         clickConfirmPopup() {
             this.$emit('confirmPopup', true);
@@ -153,7 +170,7 @@ export default {
 
         /**
          * Click no popup Question
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         clickQuestionNo() {
             this.$emit('clickQuestionNo');
@@ -161,7 +178,7 @@ export default {
 
         /**
          * Click yes popup Question
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         clickQuestionYes() {
             this.$emit('clickQuestionYes');
@@ -169,7 +186,7 @@ export default {
 
         /**
          * Sự kiện bàn phím
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         keyboard() {
             // switch (event.keyCode) {
@@ -185,7 +202,7 @@ export default {
         /**
          * Focus giá trị đầu tiên
          * @param {*} ref 
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         focusFirst(ref) {
             this.$refs[ref].focusFunc();
@@ -194,7 +211,7 @@ export default {
         /**
          * Focus giá trị cuối cùng
          * @param {*} ref 
-         * CreatedBy: NDCHIEN (18/8/2022)
+         * CreatedBy: PDDang (24/5/2023)
          */
         focusLast(ref) {
             this.$refs[ref].focusFunc();
@@ -241,6 +258,35 @@ export default {
         } else if (this.type == process.env.VUE_APP_POPUP_QUESTION) {
             // Popup question
             this.isFocusQuestion = true;
+        }
+    },
+    watch: {
+        type(newVal) {
+            if (newVal == process.env.VUE_APP_POPUP_WARNING_DEL) {
+                // Popup warning delete
+                this.isShowWarningDelete = true;
+                this.isShowWarning = false;
+                this.isShowError = false;
+                this.isShowQuestion = false;
+            } else if (newVal == process.env.VUE_APP_POPUP_WARNING) {
+                // Popup warning
+                this.isShowWarningDelete = false;
+                this.isShowWarning = true;
+                this.isShowError = false;
+                this.isShowQuestion = false;
+            } else if (newVal == process.env.VUE_APP_POPUP_ERROR) {
+                // Popup error
+                this.isShowWarningDelete = false;
+                this.isShowWarning = false;
+                this.isShowError = true;
+                this.isShowQuestion = false;
+            } else if (newVal == process.env.VUE_APP_POPUP_QUESTION) {
+                //Popup question
+                this.isShowWarningDelete = false;
+                this.isShowWarning = false;
+                this.isShowError = false;
+                this.isShowQuestion = true;
+            }
         }
     }
 };

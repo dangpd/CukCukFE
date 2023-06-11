@@ -17,6 +17,38 @@ function shallowEqual(object1, object2) {
   }
   return true;
 }
+/**
+ * So sanh 2 mảng
+ * Created by : DangPD(20/5/2023)
+ * @param {*} array1 
+ * @param {*} array2 
+ * @returns 
+ */
+function compareArrays(array1, array2) {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < array1.length; i++) {
+    const item1 = array1[i];
+    const item2 = array2[i];
+    if (typeof item1 !== typeof item2) {
+      return false;
+    }
+
+    if (typeof item1 !== 'object' || item1 === null) {
+      if (item1 !== item2) {
+        return false;
+      }
+    } else {
+      if (!shallowEqual(item1, item2)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
 
 /**
  * Ẩn khi click outside
@@ -79,14 +111,14 @@ function formatDate(datetime) {
  * @param {*} data
  * @returns
  */
-function formatGender(data) {
+function formatMaterialExcel(status) {
   try {
-    if (data == "0") {
-      return "Nam";
-    } else if (data == "1") {
-      return "Nữ";
-    } else if (data == "2") {
-      return "Khác";
+    if (status == "0") {
+      return "Bản ghi hợp lệ";
+    } else if (status == "1") {
+      return "Mã nguyên vật liệu đã tồn tại";
+    } else if (status == "2") {
+      return "Đơn vị tính trùng đơn vị chuyển đổi";
     }
     return "";
   } catch (error) {
@@ -152,30 +184,31 @@ function formatNumber(number) {
 /**
  * Tạo guid
  * @returns
- * CreatedBy: NDCHIEN (18/8/2022) 
+ * CreatedBy: PDDang (24/5/2023) 
  */
-function generateUUID() { 
+function generateUUID() {
   var d = new Date().getTime();
-  var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16;
-      if(d > 0){
-          r = (d + r)%16 | 0;
-          d = Math.floor(d/16);
-      } else {
-          r = (d2 + r)%16 | 0;
-          d2 = Math.floor(d2/16);
-      }
-      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16;
+    if (d > 0) {
+      r = (d + r) % 16 | 0;
+      d = Math.floor(d / 16);
+    } else {
+      r = (d2 + r) % 16 | 0;
+      d2 = Math.floor(d2 / 16);
+    }
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
 }
 export {
   isNull,
   formatNumber,
   shallowEqual,
+  compareArrays,
   generateUUID,
   clickoutside,
   formatDate,
-  formatGender,
+  formatMaterialExcel,
   fetchAPI,
 };

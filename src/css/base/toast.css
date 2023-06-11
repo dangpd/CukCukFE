@@ -3,7 +3,7 @@
     bottom: 0;
     right: 0;
     /* background-color: blanchedalmond; */
-    z-index: 40;
+    z-index: 999;
 }
 
 .m-toast-box .m-toast-item {

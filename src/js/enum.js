@@ -3,10 +3,10 @@ const enumMISA = {
      * Giới tính
      * CreateBy: DangPD
      */
-    gender: {
-        Male: 1,
-        Female: 0,
-        Other: 2,
+    statusMAterial: {
+        succuess: 0,
+        duplicateCode: 1,
+        duplicateConvertionUnit: 2,
     },
     /**
      * Loại form
@@ -58,6 +58,45 @@ const enumMISA = {
         exception: 0,
         serverError: 500,
         getSuccess: 200,
+    },
+
+    //enum
+    response: {
+        Success: 1,
+        Error: 0,
+        BadRequest: 400,
+        Exception: 500,
+        ServerError: 500,
+        CreatedSucsess: 201,
+    },
+
+    // Trạng thái status
+    statusPage: {
+        Yes: 2,
+        No: 1
+    },
+    // Bước file excel
+    step: {
+        One: 1,
+        Two: 2,
+        Three: 3
+    },
+    // hạn sử dụng
+    expridate: {
+        valueExp: 0,
+        typeExp: 1,
+        number: 0,
+    },
+    // Đơn vị đánh giá
+    conversionRate: 1,
+    // Đơn vị chuyern đổi
+    calculation: 1,
+    // null
+    nullValue: 0,
+    // Phép tính
+    calculations: {
+        multiple: 1,
+        divison: 2
     }
 }
 export default enumMISA

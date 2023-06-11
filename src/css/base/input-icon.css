@@ -81,10 +81,41 @@
 
 
 .btn-function-main {
+    background: rgb(241, 234, 234);
+    background: linear-gradient(180deg, rgba(241, 234, 234, 1) 0%, rgba(222, 222, 235, 1) 100%);
     border: 1px solid transparent;
 }
 
 .btn-function-main:hover {
-    background-color: #fff;
     border: 1px solid #2281c1;
+    background: #ffffff !important;
+}
+
+.not_select {
+    cursor: not-allowed !important;
+}
+
+.buttonIconForm {
+    height: 26px;
+    margin-right: 10px;
+    padding: 4px 16px;
+    cursor: pointer;
+}
+
+.buttonIcon {
+    height: 26px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+
+.buttonIcon:hover {
+    height: 26px;
+    background: rgb(236, 253, 255);
+    background: linear-gradient(180deg, rgba(236, 253, 255, 1) 0%, rgba(200, 233, 241, 1) 100%);
+    border: 1px solid #2281c1;
+}
+
+.func {
+    padding: 2px 8px;
+    cursor: pointer;
 }

@@ -4,15 +4,15 @@
     <div class="table">
       <div class="material_function">
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm"
-          styleCss="padding:0 8px;cursor:pointer;" @click="addForm" />
+          styleCss="" funC @click="addForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-copy" colorIcon="#2281c1"
-          val="Nhân bản" styleCss="padding:0 8px;cursor:pointer;" @click="duplicateForm" />
+          val="Nhân bản" styleCss="" funC @click="duplicateForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-pen-to-square" colorIcon="#2281c1"
-          val="Sửa" styleCss="padding:0 8px;cursor:pointer;" @click="updateForm" />
+          val="Sửa" styleCss="" funC @click="updateForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
-          styleCss="padding:0 8px;cursor:pointer;" @click="deleteItem" />
+          styleCss="" funC @click="deleteItem" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
-          val="Nạp" styleCss="padding:0 8px;cursor:pointer;" @click="reloadTable" />
+          val="Nạp" styleCss="" funC @click="reloadTable" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
@@ -52,10 +52,10 @@
               :class="{
                 'row-selected': dataSelceted == item,
               }">
-              <td class="text-align-left">{{ item.conversionUnitName }}</td>
-              <td class="text-align-left">{{ item.description }}</td>
+              <td class="text-align-left" :title="item.conversionUnitName">{{ item.conversionUnitName }}</td>
+              <td class="text-align-left" :title="item.description">{{ item.description }}</td>
               <td class="text-align-center" style="z-index: 0">
-                <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status == '2'"
+                <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status === statusPage"
                   :value="item.status" />
               </td>
             </tr>
@@ -96,6 +96,8 @@ import BaseButtonIcon from "../base/BaseButtonIcon.vue";
 import BaseToast from "../base/BaseToast.vue";
 import BasePopUp from "../base/BasePopUp.vue";
 import { fetchAPI } from "@/js/common";
+import enumMISA from '../../js/enum';
+import errorBE from '../../js/errorBE';
 export default {
   name: "BaseUnit",
   props: [""],
@@ -152,9 +154,15 @@ export default {
           callbackWarningDeleteYes: () => { }, // xử lý khi click không popup question
         },
       },
+      statusPage: enumMISA.statusPage.Yes
     };
   },
   methods: {
+    /**
+     * Thay đổi giá trị search
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     changeFilter(value) {
       try {
         if (value.filterVal != "") {
@@ -191,6 +199,39 @@ export default {
       }
     },
 
+    /**
+     * Thay đổi status
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    changeFilterStatus(value) {
+      if (value) {
+        // Thông tin gửi lên server search
+        var addFilter = {
+          field: value.fieldName,
+          operater: "=",
+          value: value.val,
+        };
+        this.dataFilter = this.dataFilter.filter((data) => {
+          return data.field != addFilter.field;
+        });
+        this.dataFilter.push(addFilter);
+        // call lấy data
+        this.getPaging(
+          this.pageSize,
+          this.pageChoice,
+          this.sort,
+          this.dataFilter
+        );
+      }
+    },
+
+
+    /**
+     * Load data trang
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getPaging(pageSize, pageChoice, sort, dataFilter) {
       try {
         this.isLoading = true;
@@ -220,48 +261,42 @@ export default {
       }
     },
 
-    changeFilterStatus(value) {
-      if (value) {
-        // Thông tin gửi lên server search
-        var addFilter = {
-          field: value.fieldName,
-          operater: "=",
-          value: value.val,
-        };
-        this.dataFilter = this.dataFilter.filter((data) => {
-          return data.field != addFilter.field;
-        });
-        this.dataFilter.push(addFilter);
-        // call lấy data
+    /**
+     * reload lại table
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    reloadTable() {
+      try {
+        this.$refs.pageNumber.pageSize = 20;
+        this.$refs.pageNumber.pageChoice = 1;
+        this.dataFilter = [
+          {
+            field: "status",
+            operater: "=",
+            value: "1",
+          },
+        ];
+        this.sort = "";
         this.getPaging(
           this.pageSize,
           this.pageChoice,
           this.sort,
           this.dataFilter
         );
+      } catch (error) {
+        console.log(error);
       }
     },
 
-    reloadTable() {
-      this.$refs.pageNumber.pageSize = 20;
-      this.$refs.pageNumber.pageChoice = 1;
-      this.dataFilter = [
-        {
-          field: "status",
-          operater: "=",
-          value: "1",
-        },
-      ];
-      this.sort = "";
-      this.getPaging(
-        this.pageSize,
-        this.pageChoice,
-        this.sort,
-        this.dataFilter
-      );
-    },
-
+    /**
+     * lays trang
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getDataNumberTable(data) {
+      this.pageSize = data.pageSize;
+      this.pageNumber = data.pageNumber;
       this.getPaging(
         data.pageSize,
         data.pageNumber,
@@ -271,17 +306,32 @@ export default {
       // console.log(data);
     },
 
+    /**
+     * Gọi form thêm mưới
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     addForm() {
       this.showForm = true;
       this.id = null;
       this.type = Resource.TYPE_FORM.ADD;
     },
 
+    /**
+     * tr click
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     trClick(data) {
       this.dataSelceted = data;
-      console.log("data", this.dataSelceted);
+      // console.log("data", this.dataSelceted);
     },
 
+    /**
+     * Nhân bản form
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     duplicateForm() {
       if (this.dataSelceted.conversionUnitId) {
         this.showForm = true;
@@ -290,6 +340,11 @@ export default {
       }
     },
 
+    /**
+     * Cập nhật form
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     updateForm() {
       if (this.dataSelceted.conversionUnitId) {
         this.showForm = true;
@@ -298,47 +353,69 @@ export default {
       }
     },
 
+    /**
+     * db click
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     dbUpdateForm(data) {
       this.showForm = true;
       this.id = data.conversionUnitId;
       this.type = Resource.TYPE_FORM.UPDATE;
     },
 
+    /**
+     * Xóa 1 phần tử
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     deleteItem() {
-      if (this.dataSelceted && this.popup.callbackFunc) {
-        // show popup xác nhận xóa
-        this.customPopup(
-          true,
-          `${Resource.ERROR_VALIDATE_FE.QuestionDeleteUnit} << ${this.dataSelceted.conversionUnitName} >> ?`,
-          Resource.VUE_APP_POPUP.WARNING_DEL
-        );
-        // Hàm xử lý khi click có
-        this.popup.callbackFunc.callbackWarningDeleteYes = () => {
-          // Call API xóa
-          fetchAPI(
-            unitService.deleteRecord(this.dataSelceted.conversionUnitId),
-            Resource.HTTP_METHOD.DELETE,
-            (res) => {
-              console.log(res);
-              if (res == Resource.Response.Success) {
-                this.customPopup();
-                this.deleteSuccess();
-              } else {
-                this.customPopup();
-                this.deleteFail();
-              }
-            }
+      try {
+        if (this.dataSelceted && this.popup.callbackFunc) {
+          // show popup xác nhận xóa
+          this.customPopup(
+            true,
+            `${Resource.ERROR_VALIDATE_FE.QuestionDeleteUnit} << ${this.dataSelceted.conversionUnitName} >> ?`,
+            Resource.VUE_APP_POPUP.WARNING_DEL
           );
-        };
-      } else if (!this.dataSelceted && this.popup.callbackFunc) {
-        this.customPopup(
-          true,
-          `${Resource.ERROR_VALIDATE_FE.RequireChoiceUnit}`,
-          Resource.VUE_APP_POPUP.ERROR
-        );
+          // Hàm xử lý khi click có
+          this.popup.callbackFunc.callbackWarningDeleteYes = () => {
+            // Call API xóa
+            fetchAPI(
+              unitService.deleteRecord(this.dataSelceted.conversionUnitId),
+              Resource.HTTP_METHOD.DELETE,
+              (res) => {
+                // console.log(res);
+                if (res == enumMISA.response.Success) {
+                  this.customPopup();
+                  this.deleteSuccess();
+                } else if (res.moreInfo == errorBE.NotexistOrDeleted) {
+                  // this.deleteFail();
+                  this.customPopup(true, `${Resource.ToastMessage.NotDelete.TextUnit} <${this.dataSelceted.conversionUnitName}> ${Resource.ToastMessage.NotDelete.AfterText}`, Resource.VUE_APP_POPUP.ERROR);
+                } else {
+                  // this.deleteFail();
+                  this.customPopup(true, Resource.ERROR_BE.Unknow, Resource.VUE_APP_POPUP.ERROR);
+                }
+              }
+            );
+          };
+        } else if (!this.dataSelceted && this.popup.callbackFunc) {
+          this.customPopup(
+            true,
+            `${Resource.ERROR_VALIDATE_FE.RequireChoiceUnit}`,
+            Resource.VUE_APP_POPUP.ERROR
+          );
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
 
+    /**
+     * Gọi lại form thêm mưới
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getNewForm() {
       this.showForm = true;
       this.id = null;
@@ -465,7 +542,7 @@ export default {
      * @param {Boolean} isShow true- show popup, false - ẩn popup
      * @param {String} message nội dung của popup
      * @param {String} type loại popup
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     customPopup(isShow = false, message = "", type = "") {
       if (this.popup) {
@@ -511,4 +588,6 @@ export default {
 };
 </script>
   
-<style></style>
+<style>
+@import url(../../css/form/material.css);
+</style>

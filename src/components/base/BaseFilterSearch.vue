@@ -108,6 +108,10 @@ export default {
             }
         },
 
+        clearData() {
+            this.$nextTick(() => { this.valueSearch = "" })
+        },
+
         /**
          * Sự kiện khi onchange
          */
@@ -126,17 +130,17 @@ export default {
         this.filterSelectedShow = this.listFilterShow[0].showValue
     },
     watch: {
-        valueSearch(newVal) {
-            this.valueSearch = newVal;
-            // console.log(newVal);
-            if(newVal == null){
-                this.valueSearch = "";
-            }
-            clearTimeout(this.setSearchTime);
-            this.setSearchTime = setTimeout(async () => {
-                this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
-            }, 600);
-        }
+        // valueSearch(newVal) {
+        //     this.valueSearch = newVal;
+        //     // console.log(newVal);
+        //     if (newVal == null) {
+        //         this.valueSearch = "";
+        //     }
+        //     clearTimeout(this.setSearchTime);
+        //     this.setSearchTime = setTimeout(async () => {
+        //         this.$emit('changeFilter', { filterType: this.filterSelected, filterVal: this.valueSearch, field: this.field })
+        //     }, 600);
+        // }
     }
 }
 </script>

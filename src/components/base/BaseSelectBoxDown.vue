@@ -1,97 +1,48 @@
 <template>
-  <div
-    class="select-box"
-    :style="`${style}`"
-    @mouseover="mouseOver"
-    @mouseout="mouseOut"
-    v-click-out-side="hideListData"
-  >
-    <div
-      class="select_container"
-      v-click-out-side="hideBorder"
-      ref="selectBoxShow"
-    >
-      <div
-        class="select-box-show"
-        :class="{
-          'select-box-error': isRequired,
-          hidden_border: setShowBorder,
-        }"
-      >
-        <input
-          type="text"
-          class="select-box-main"
-          v-model="textInput"
-          ref="inputSelectBox"
-          @input="inputOnChange"
-          @focus="onFocusInput"
-          @keydown="selecItemUpDown"
-          @click="setShowBorder = false"
-        />
-        <button
-          v-if="!setShowBorder"
-          tabindex="-1"
-          @click="btnSelectDataOnClick"
-          @keydown="selecItemUpDown"
-        >
+  <div ref="selectBoxShow" style="position: relative;" class="select-box" :style="`${style}`" @mouseover="mouseOver"
+    @mouseout="mouseOut" v-click-out-side="hideListData">
+    <div class="select_container" style="height: 26px;" v-click-out-side="hideBorder">
+      <div class="select-box-show" :class="{
+        'select-box-error': isRequired,
+        'hidden_border': setShowBorder,
+        'focus_input ': focusBorder, 'onBlurInput': onBlurInput
+      }" ref="selectBoxShow">
+        <input type="text" class="select-box-main" v-model="textInput" ref="inputSelectBox" @input="inputOnChange"
+          @focus="onFocusInput" @keydown="selecItemUpDown" @click="setShowBorder = false" :tabindex="tabIndex"
+          @blur="onBlur" />
+        <button v-if="!setShowBorder" tabindex="-1" @click="btnSelectDataOnClick" @keydown="selecItemUpDown">
           <div class="icon_background_1 select-box-iconc"></div>
         </button>
-        <div
-          v-if="addSelect && !setShowBorder"
-          class="add_select_box"
-          @click="clickAddSelect"
-        >
+        <div v-if="addSelect && !setShowBorder" class="add_select_box" @click="clickAddSelect">
           <i :class="addSelectIcon" :style="{ color: addSelectColor }"></i>
         </div>
-        <div v-show="showError" class="error-selecbox-alert">
+        <!-- <div v-show="showError" class="error-selecbox-alert">
           <p class="error-selecbox-arrow"></p>
           <div class="error-selecbox-content">
             <p>
               {{ messError }}
             </p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
     <!-- :style="styleValHide" -->
-    <div
-      v-show="isShowListData"
-      ref="selectBoxHidden"
-      class="select-box-hidden"
-      style="top: 0; left: 0"
-    >
+    <div v-show="isShowListData" ref="selectBoxHidden" class="select-box-hidden"
+      style="position: absolute;top: 28px; left: 0;border: 1px solid #bbb;">
       <button v-if="fieldListHide.length > 1" class="select-box-title">
-        <div
-          v-for="(showItem, index) in fieldListHide"
-          :key="index"
-          class="selecbox-show-list-item"
-          :style="'width: ' + showItem.width + '%'"
-        >
+        <div v-for="(showItem, index) in fieldListHide" :key="index" class="selecbox-show-list-item"
+          :style="'width: ' + showItem.width + '%'">
           {{ showItem.title }}
         </div>
       </button>
-      <button
-        v-for="(item, index) in dataMain"
-        :key="index"
-        :ref="'toFocus_' + index"
-        :class="{
-          'select-box-focus': index == indexItemFocus,
-          'select-box-choice': index == indexItemSelected,
-        }"
-        :value="item[fieldNameShow]"
-        @click="itemOnSelect(item, index)"
-        @focus="saveItemFocus(index)"
-        @keydown="selecItemUpDown(index)"
-        @keyup="selecItemUpDown(index)"
-        tabindex="1"
-      >
-        <div
-          v-for="(showItem, index) in fieldListHide"
-          :key="index"
-          class="selecbox-show-list-item"
-          :style="'width: ' + showItem.width + '%'"
-        >
+      <button v-for="(item, index) in dataMain" :key="index" :ref="'toFocus_' + index" :class="{
+        'select-box-focus': index == indexItemFocus,
+        'select-box-choice': index == indexItemSelected,
+      }" :value="item[fieldNameShow]" @click="itemOnSelect(item, index)" @focus="saveItemFocus(index)"
+        @keydown="selecItemUpDown(index)" @keyup="selecItemUpDown(index)" tabindex="1">
+        <div v-for="(showItem, index) in fieldListHide" :key="index" class="selecbox-show-list-item"
+          :style="'width: ' + showItem.width + '%'">
           {{ item[showItem.field] }}
         </div>
       </button>
@@ -99,14 +50,9 @@
   </div>
 </template>
 <script>
-const keyCode = {
-  Enter: 13,
-  ArrowUp: 38,
-  ArrowDown: 40,
-  ESC: 27,
-};
 
 import clickOutSide from "@mahdikhashan/vue3-click-outside";
+import enumMISA from '../../js/enum';
 
 export default {
   data() {
@@ -120,6 +66,8 @@ export default {
       isRequired: false, // Trường dữ liệu bắt buộc phải chọn
       showError: false, // Hiển thị box nội dung lỗi
       setShowBorder: false, // set show border
+      focusBorder: false,
+      onBlurInput: false,
     };
   },
   directives: {
@@ -144,12 +92,13 @@ export default {
     addSelectColor: String, // color select
     showBorder: Boolean, // show border
     id: [String, Number],
+    tabIndex: [Number, String]
   },
 
   methods: {
     /**
      * Lưu lại index của item đã focus
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     saveItemFocus(index) {
       this.indexItemFocus = index;
@@ -157,15 +106,16 @@ export default {
 
     /**
      * Ẩn danh sách item
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     hideListData() {
       this.isShowListData = false;
+      this.focusBorder = false;
     },
 
     /**
      * Nhấn vào button thì hiển thị hoặc ẩn List Item
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     btnSelectDataOnClick() {
       this.dataFilter = this.data;
@@ -174,7 +124,7 @@ export default {
 
     /**
      * Click chọn item trong danh sách
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     itemOnSelect(item, index) {
       if ((item && index) || (item && index == 0)) {
@@ -188,10 +138,15 @@ export default {
         this.$emit("getValue", {
           val: value,
           fieldName: this.fieldName,
-          id: item.conversionUnitId,
+          id: this.id,
         });
         this.$emit("update:setData", value);
       }
+    },
+
+    onBlur() {
+      this.onBlurInput = false;
+      this.focusBorder = false;
     },
 
     selecItemUpDown() {
@@ -201,10 +156,10 @@ export default {
       var elToFocusPrev = null;
       var selecboxHide = this.$refs["selectBoxHidden"];
       switch (keyCodePress) {
-        case keyCode.ESC:
+        case enumMISA.KEY_CODE.ESC:
           this.isShowListData = false;
           break;
-        case keyCode.ArrowDown:
+        case enumMISA.KEY_CODE.ROW_DOWN:
           this.isShowListData = true;
           elToFocus = this.$refs[`toFocus_${me.indexItemFocus + 1}`];
           elToFocusPrev = this.$refs[`toFocus_${me.indexItemFocus}`];
@@ -218,13 +173,13 @@ export default {
           } else {
             if (
               selecboxHide.scrollTop <=
-                elToFocusPrev[0].offsetTop +
-                  elToFocusPrev[0].offsetHeight -
-                  selecboxHide.offsetHeight &&
               elToFocusPrev[0].offsetTop +
-                elToFocusPrev[0].offsetHeight -
-                selecboxHide.offsetHeight >=
-                0
+              elToFocusPrev[0].offsetHeight -
+              selecboxHide.offsetHeight &&
+              elToFocusPrev[0].offsetTop +
+              elToFocusPrev[0].offsetHeight -
+              selecboxHide.offsetHeight >=
+              0
             ) {
               selecboxHide.scrollTop =
                 elToFocus[0].offsetTop +
@@ -235,8 +190,11 @@ export default {
           }
 
           break;
-        case keyCode.ArrowUp:
+        case enumMISA.KEY_CODE.ROW_UP:
           this.isShowListData = true;
+          if (me.indexItemFocus == null || me.indexItemFocus == 0) {
+            this.indexItemFocus = 1;
+          }
           elToFocus = this.$refs[`toFocus_${me.indexItemFocus - 1}`];
           if (
             this.indexItemFocus == null ||
@@ -258,12 +216,25 @@ export default {
             this.indexItemFocus -= 1;
           }
           break;
-        case keyCode.Enter:
+        case enumMISA.KEY_CODE.ENTER:
           elToFocus = this.$refs[`toFocus_${me.indexItemFocus}`];
           if (elToFocus && elToFocus.length > 0) {
             elToFocus[0].click();
+            // console.log(this.data);
+            // let value = this.data.find((item) => {
+            //   return item.conversionUnitName == elToFocus[0].value;
+            // })
+            // console.log({
+            //   val: value.conversionUnitId,
+            //   fieldName: value.conversionUnitName,
+            //   id: this.id,
+            // });
             this.isShowListData = false;
           }
+          break;
+        case enumMISA.KEY_CODE.TAB:
+          // Ẩn data show
+          this.setShowBorder = false;
           break;
         default:
           break;
@@ -272,7 +243,7 @@ export default {
 
     /**
      * Lấy giá trị của selectbox
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     getValueSelectBox() {
       var value = {
@@ -314,7 +285,7 @@ export default {
 
     /**
      * Nhập text thì thực hiện filter dữ liệu và hiển thị
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     inputOnChange() {
       var me = this;
@@ -353,7 +324,7 @@ export default {
 
     /**
      * Hover selectbox
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     mouseOver() {
       if (this.isRequired) this.showError = true;
@@ -361,7 +332,7 @@ export default {
 
     /**
      * mouseOut
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     mouseOut() {
       this.showError = false;
@@ -372,11 +343,13 @@ export default {
      */
     onFocusInput() {
       this.setShowBorder = false;
+      this.focusBorder = true;
+      // this.onBlurInput = false;
     },
 
     /**
      * check dữ liệu validate
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     validate() {
       if (this.required && !this.textInput) {
@@ -397,7 +370,7 @@ export default {
     /**
      * Set combobox với giá trị được truyền vào
      * @param {*} dataSet
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     setDataSelecBox(dataSet) {
       if (dataSet) {
@@ -423,15 +396,16 @@ export default {
 
     /**
      * focus
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     focusFunc() {
       this.$refs.inputSelectBox.focus();
+      this.focusBorder = true;
     },
 
     /**
      * Gọi hàm hiển thị show box thêm select
-     * CreatedBy: NDCHIEN (29/9/2022)
+     * CreatedBy: PDDang (29/9/2022)
      */
     clickAddSelect() {
       this.$emit("showBoxAddSelect");
@@ -456,51 +430,28 @@ export default {
       this.dataMain = newVal;
       this.setDataSelecBox(this.setData);
     },
-    isShowListData(newVal) {
-      if (newVal) {
-        // console.log(newVal);
-        console.log(this.styleValHide);
-        if (this.styleValHide == "top") {
-          this.$nextTick(() => {
-            this.$refs.selectBoxHidden.style.left =
-              this.$refs.selectBoxShow.getBoundingClientRect().left + "px";
-            this.$refs.selectBoxHidden.style.top =
-              this.$refs.selectBoxShow.getBoundingClientRect().top -
-              this.$refs.selectBoxHidden.offsetHeight -
-              3 +
-              "px";
-            console.log(
-              "1",
-              this.$refs.selectBoxShow.getBoundingClientRect().left + "px"
-            );
-            console.log(
-              "2",
-              this.$refs.selectBoxShow.getBoundingClientRect().top -
-                this.$refs.selectBoxHidden.offsetHeight -
-                3 +
-                "px"
-            );
-          });
-        } else {
-          this.$nextTick(() => {
-            this.$refs.selectBoxHidden.style.left =
-              this.$refs.selectBoxShow.getBoundingClientRect().left + "px";
-            this.$refs.selectBoxHidden.style.top =
-              this.$refs.selectBoxShow.getBoundingClientRect().bottom +
-              3 +
-              "px";
-            console.log(
-              "3",
-              this.$refs.selectBoxShow.getBoundingClientRect().left + "px"
-            );
-            console.log(
-              "4",
-              this.$refs.selectBoxShow.getBoundingClientRect().bottom + 3 + "px"
-            );
-          });
-        }
-      }
-    },
+    // isShowListData(newVal) {
+    //   if (newVal) {
+    //     if (this.styleValHide == 'top') {
+    //       this.$nextTick(() => {
+    //         this.$refs.selectBoxHidden.style.left = this.$refs.selectBoxShow.getBoundingClientRect().left + 'px'
+    //         this.$refs.selectBoxHidden.style.top = this.$refs.selectBoxShow.getBoundingClientRect().top - this.$refs.selectBoxHidden.offsetHeight - 3 + 'px'
+    //       })
+    //     }
+    //     else {
+    //       this.$nextTick(() => {
+    //         console.log(this.$refs.selectBoxShow.getBoundingClientRect().left + 'px');
+    //         console.log(this.$refs.selectBoxShow.getBoundingClientRect().bottom + 'px');
+    //         console.log(this.$refs.selectBoxShow.offsetWidth + "px");
+    //         this.$refs.selectBoxHidden.style.left = this.$refs.selectBoxShow.getBoundingClientRect().left + 'px'
+    //         this.$refs.selectBoxHidden.style.top = this.$refs.selectBoxShow.getBoundingClientRect().bottom + 3 + 'px'
+    //       })
+    //     }
+    //   }
+    // },
+    tabIndex(newVal) {
+      console.log(newVal);
+    }
   },
 
   async created() {

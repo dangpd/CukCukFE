@@ -4,19 +4,24 @@
     <div class="table">
       <div class="material_function">
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-add" colorIcon="#2281c1" val="Thêm"
-          styleCss="padding:0 8px;cursor:pointer" @click="addForm" />
+          styleCss="" funC @click="addForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-copy" colorIcon="#2281c1"
-          val="Nhân bản" styleCss="padding:0 8px;cursor:pointer" @click="duplicateForm" />
+          val="Nhân bản" styleCss="" funC @click="duplicateForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-pen-to-square" colorIcon="#2281c1"
-          val="Sửa" styleCss="padding:0 8px;cursor:pointer" @click="updateForm" />
+          val="Sửa" styleCss="" funC @click="updateForm" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-xmark" colorIcon="red" val="Xóa"
-          styleCss="padding:0 8px;cursor:pointer" @click="deleteItem" />
+          styleCss="" funC @click="deleteItem" />
         <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-rotate" colorIcon="#2281c1"
-          val="Nạp" styleCss="padding:0 8px;cursor:pointer" @click="reloadTable" />
+          val="Nạp" styleCss="" funC @click="reloadTable" />
+        <input type="file" ref="fileInput" style="display: none" @change="onFileChange">
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid fa-file-import" colorIcon="#2281c1"
+          val="Nhập khẩu" styleCss="" funC @click="importFile" />
+        <BaseButtonIcon noneBg noneBorder class="btn-function-main" icon="fa-solid  fa-file-arrow-down"
+          colorIcon="#2281c1" val="Xuất khẩu" styleCss="" funC @click="exportFile" />
       </div>
       <div class="table__content">
         <BaseLoading v-if="isLoading"></BaseLoading>
-        <table class="m-table" border="1">
+        <table class="m-table" border="1" style="margin-bottom: 8px;">
           <thead>
             <tr>
               <th style="min-width: 170px">
@@ -24,7 +29,7 @@
                   Mã nguyên vật liệu
                 </div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch type="string" field="materialCode" @changeFilter="changeFilter" />
+                  <BaseFilterSearch type="string" field="materialCode" ref="materiCode" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 220px">
@@ -32,19 +37,20 @@
                   Tên nguyên vật liệu
                 </div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch type="string" field="materialName" @changeFilter="changeFilter" />
+                  <BaseFilterSearch type="string" field="materialName" ref="materialName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 180px">
                 <div style="margin-top: 8px; font-weight: 100">Tính chất</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch type="string" field="feature" @changeFilter="changeFilter" />
+                  <BaseFilterSearch type="string" field="feature" ref="feature" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">Đơn vị tính</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch type="string" field="conversionUnitName" @changeFilter="changeFilter" />
+                  <BaseFilterSearch type="string" field="conversionUnitName" ref="conversionUnitName"
+                    @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 170px">
@@ -52,13 +58,13 @@
                   Nhóm nguyên vật liệu
                 </div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch type="string" field="categoryName" @changeFilter="changeFilter" />
+                  <BaseFilterSearch type="string" field="categoryName" ref="categoryName" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="min-width: 170px">
                 <div style="margin-top: 8px; font-weight: 100">Diễn giải</div>
                 <div style="display: flex; min-width: 100%; margin: 8px 0">
-                  <BaseFilterSearch type="string" field="description" @changeFilter="changeFilter" />
+                  <BaseFilterSearch type="string" field="description" ref="description" @changeFilter="changeFilter" />
                 </div>
               </th>
               <th style="width: 100px">
@@ -82,15 +88,21 @@
               :class="{
                 'row-selected': dataSelceted == item,
               }">
-              <td class="text-align-left">{{ item.materialCode }}</td>
-              <td class="text-align-left">{{ item.materialName }}</td>
-              <td class="text-align-left">{{ item.feature }}</td>
-              <td class="text-align-left">{{ item.conversionUnitName }}</td>
-              <td class="text-align-left">{{ item.categoryName }}</td>
-              <td class="text-align-left">{{ item.description }}</td>
-              <td class="text-align-center" style="align-items: center">
-                <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status == '2'"
-                  :value="item.status" />
+              <td class="text-align-left tooltips" style="max-width: 170px;" :title="item.materialCode">{{
+                item.materialCode }}</td>
+
+              <td class="text-align-left tooltips" style="max-width: 220px;" :title="item.materialName">{{
+                item.materialName }}</td>
+              <td class="text-align-left tooltips" style="max-width: 180px;" :title="item.feature">{{ item.feature }}</td>
+              <td class="text-align-left tooltips" style="max-width: 170px;" :title="item.conversionUnitName">{{
+                item.conversionUnitName }}</td>
+              <td class="text-align-left tooltips" style="max-width: 170px;" :title="item.categoryName">{{
+                item.categoryName }}</td>
+              <td class="text-align-left tooltips" style="max-width: 170px;" :title="item.description">{{ item.description
+              }}</td>
+              <td class="text-align-center" style="align-items: center;">
+                <BaseCheckBox style="cursor: default;" @dblclick.stop.prevent="noClick" class="checkbox_table_status"
+                  disable :modelCheckbox="item.status === statusPage" :value="item.status" />
               </td>
             </tr>
           </tbody>
@@ -106,19 +118,25 @@
       </div>
     </div>
     <TheFormMaterial v-if="showForm" @onClose="showForm = false" :id="id" :type="type" :reloadForm="reloadForm"
-      @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm" @showFormUnit="showFormUnits"
-      @showFormStock="showFormStocks" @showFormCategory="showFormCategorys"></TheFormMaterial>
+      @reloadFormSuccess="reloadFormSuccess" @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccess" @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm"
+      @showFormUnit="showFormUnits" @showFormStock="showFormStocks" @showFormCategory="showFormCategorys">
+    </TheFormMaterial>
     <TheFormUnit v-if="showFormUnit" @onClose="showFormUnit = false" :id="idUnit" :type="typeUnit"
-      @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm"></TheFormUnit>
+      @saveDataSucces="saveDataSuccesAndReload" @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccessAndReload" @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewFormUnit"></TheFormUnit>
     <TheFormStock v-if="showFormStock" @onClose="showFormStock = false" :id="idStock" :type="typeStock"
-      @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail" @saveDataAndAddSuccess="saveDataAndAddSuccess"
-      @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm"></TheFormStock>
+      @saveDataSucces="saveDataSuccesAndReload" @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccessAndReload" @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewFormStock"></TheFormStock>
     <TheFormMaterialCategory v-if="showFormCategory" @onClose="showFormCategory = false" :id="idCategory"
-      :type="typeCategory" @saveDataSucces="saveDataSucces" @saveDataFail="saveDataFail"
-      @saveDataAndAddSuccess="saveDataAndAddSuccess" @saveDataAndAddFail="saveDataAndAddFail" @getNewForm="getNewForm">
+      :type="typeCategory" @saveDataSucces="saveDataSuccesAndReload" @saveDataFail="saveDataFail"
+      @saveDataAndAddSuccess="saveDataAndAddSuccessAndReload" @saveDataAndAddFail="saveDataAndAddFail"
+      @getNewForm="getNewFormCategory">
     </TheFormMaterialCategory>
+    <TheFormImportExcel v-if="showImprt" @reloadData="reloadTable" @onClose="showImprt = false">
+    </TheFormImportExcel>
     <BaseToast v-if="toast.isShowToast" :icon="toast.iconToast" :message="toast.messageToast"
       @closeToast="closeToastItem()"></BaseToast>
     <BasePopUp v-if="popup.isShowPopup" :message="popup.messagePopup" :type="popup.typePopup" @closePopup="customPopup()"
@@ -144,8 +162,25 @@ import TheFormMaterial from "./TheFormMaterial.vue";
 import TheFormUnit from "./TheFormUnit.vue";
 import TheFormStock from "./TheFormStock.vue";
 import TheFormMaterialCategory from "./TheFormMaterialCategory.vue";
+import enumMISA from '../../js/enum';
+// import axios from 'axios';
+import TheFormImportExcel from "./TheFormImportExcel.vue";
 export default {
-  name: "BaseStock",
+  name: "BaseMaterial",
+  directives: {
+    tooltip: {
+      bind: function (el) {
+        el.addEventListener('mouseover', function (evt) {
+          let targetEl = evt.target;
+          if (targetEl.offsetWidth < targetEl.scrollWidth) {
+            targetEl.setAttribute('title', evt.target.textContent);
+          } else {
+            targetEl.hasAttribute('title') && targetEl.removeAttribute('title');
+          }
+        });
+      }
+    }
+  },
   props: [""],
   components: {
     BaseContentTitleVue,
@@ -161,6 +196,7 @@ export default {
     TheFormStock,
     TheFormUnit,
     TheFormMaterialCategory,
+    TheFormImportExcel
   },
   data() {
     return {
@@ -213,11 +249,20 @@ export default {
         },
       },
       reloadForm: false,
+      statusPage: enumMISA.statusPage.Yes,
+      showImprt: false,
     };
   },
   methods: {
+    /**
+     * Thay đổi value của search input
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     changeFilter(value) {
       try {
+        // console.log(this.pageNumber);
+        // console.log(this.pageSize);
         if (value.filterVal != "") {
           // Tạo đối tượng search lọc thông tin
           var addFilter = {
@@ -252,6 +297,42 @@ export default {
       }
     },
 
+    /**
+     * Thay đổi status
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    changeFilterStatus(value) {
+      try {
+        if (value) {
+          // Thông tin gửi lên server search
+          var addFilter = {
+            field: value.fieldName,
+            operater: "=",
+            value: value.val,
+          };
+          this.dataFilter = this.dataFilter.filter((data) => {
+            return data.field != addFilter.field;
+          });
+          this.dataFilter.push(addFilter);
+          // call lấy data
+          this.getPaging(
+            this.pageSize,
+            this.pageChoice,
+            this.sort,
+            this.dataFilter
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * Load data
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getPaging(pageSize, pageChoice, sort, dataFilter) {
       try {
         this.isLoading = true;
@@ -281,48 +362,50 @@ export default {
       }
     },
 
-    changeFilterStatus(value) {
-      if (value) {
-        // Thông tin gửi lên server search
-        var addFilter = {
-          field: value.fieldName,
-          operater: "=",
-          value: value.val,
-        };
-        this.dataFilter = this.dataFilter.filter((data) => {
-          return data.field != addFilter.field;
-        });
-        this.dataFilter.push(addFilter);
-        // call lấy data
+    /**
+     * Reload data
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    reloadTable() {
+      try {
+        this.$refs.pageNumber.pageSize = 20;
+        this.$refs.pageNumber.pageChoice = 1;
+        // Clear text search
+        this.$refs.materiCode.clearData();
+        this.$refs.materialName.clearData();
+        this.$refs.feature.clearData();
+        this.$refs.conversionUnitName.clearData();
+        this.$refs.categoryName.clearData();
+        this.$refs.description.clearData();
+        // console.log(this.dataFilter);
+        this.dataFilter = [
+          {
+            field: "status",
+            operater: "=",
+            value: "1",
+          },
+        ];
+        this.sort = "";
         this.getPaging(
           this.pageSize,
           this.pageChoice,
           this.sort,
           this.dataFilter
         );
+      } catch (error) {
+        console.log(error);
       }
     },
 
-    reloadTable() {
-      this.$refs.pageNumber.pageSize = 20;
-      this.$refs.pageNumber.pageChoice = 1;
-      this.dataFilter = [
-        {
-          field: "status",
-          operater: "=",
-          value: "1",
-        },
-      ];
-      this.sort = "";
-      this.getPaging(
-        this.pageSize,
-        this.pageChoice,
-        this.sort,
-        this.dataFilter
-      );
-    },
-
+    /**
+     * Thay đổi page number
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getDataNumberTable(data) {
+      this.pageSize = data.pageSize;
+      this.pageNumber = data.pageNumber;
       this.getPaging(
         data.pageSize,
         data.pageNumber,
@@ -332,96 +415,185 @@ export default {
       // console.log(data);
     },
 
+    /**
+     * Mở form thêm mới
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     addForm() {
       this.showForm = true;
       this.id = null;
       this.type = Resource.TYPE_FORM.ADD;
     },
 
+    /**
+     * ShowForm Unit
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     showFormUnits() {
       this.showFormUnit = true;
       this.idUnit = null;
       this.typeUnit = Resource.TYPE_FORM.ADD;
     },
 
+    /**
+     * Show form kho
+     * Created: PDDang(24/5/2023)
+     * @param {*} value
+     */
     showFormStocks() {
       this.showFormStock = true;
       this.idStock = null;
       this.typeStock = Resource.TYPE_FORM.ADD;
     },
 
+    /**
+     * show form nhóm nguyên vật liệu
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     showFormCategorys() {
       this.showFormCategory = true;
       this.idCategory = null;
       this.typeCategory = Resource.TYPE_FORM.ADD;
     },
 
+    /**
+     * tr click
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     trClick(data) {
       this.dataSelceted = data;
       // console.log("data", this.dataSelceted);
     },
 
+    /**
+     * db click
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     duplicateForm() {
-      if (this.dataSelceted.materialId) {
-        this.showForm = true;
-        this.id = this.dataSelceted.stockId;
-        this.type = Resource.TYPE_FORM.DUPLICATE;
+      try {
+        if (this.dataSelceted.materialId) {
+          this.showForm = true;
+          this.id = this.dataSelceted.materialId;
+          this.type = Resource.TYPE_FORM.DUPLICATE;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
 
+    /**
+     * cập nhật form
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     updateForm() {
-      if (this.dataSelceted.materialId) {
-        this.showForm = true;
-        this.id = this.dataSelceted.materialId;
-        this.type = Resource.TYPE_FORM.UPDATE;
+      try {
+        if (this.dataSelceted.materialId) {
+          this.showForm = true;
+          this.id = this.dataSelceted.materialId;
+          this.type = Resource.TYPE_FORM.UPDATE;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
 
+    /**
+     * db click form
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     dbUpdateForm(data) {
       this.showForm = true;
       this.id = data.materialId;
       this.type = Resource.TYPE_FORM.UPDATE;
     },
 
+    /**
+     * Xóa phần tử
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     deleteItem() {
-      if (this.dataSelceted && this.popup.callbackFunc) {
-        // show popup xác nhận xóa
-        this.customPopup(
-          true,
-          `${Resource.ERROR_VALIDATE_FE.QuestionDeleteMaterial} << ${this.dataSelceted.materialCode} - ${this.dataSelceted.materialName} >> ?`,
-          Resource.VUE_APP_POPUP.WARNING_DEL
-        );
-        // Hàm xử lý khi click có
-        this.popup.callbackFunc.callbackWarningDeleteYes = () => {
-          // Call API xóa
-          fetchAPI(
-            materialService.deleteRecord(this.dataSelceted.materialId),
-            Resource.HTTP_METHOD.DELETE,
-            (res) => {
-              console.log(res);
-              if (res == Resource.Response.Success) {
-                this.customPopup();
-                this.deleteSuccess();
-              } else {
-                this.customPopup();
-                this.deleteFail();
-              }
-            }
+      try {
+        if (this.dataSelceted && this.popup.callbackFunc) {
+          // show popup xác nhận xóa
+          this.customPopup(
+            true,
+            `${Resource.ERROR_VALIDATE_FE.QuestionDeleteMaterial} << ${this.dataSelceted.materialCode} - ${this.dataSelceted.materialName} >> ?`,
+            Resource.VUE_APP_POPUP.WARNING_DEL
           );
-        };
-      } else if (!this.dataSelceted && this.popup.callbackFunc) {
-        this.customPopup(
-          true,
-          `${Resource.ERROR_VALIDATE_FE.RequireChoiceMaterial}`,
-          Resource.VUE_APP_POPUP.ERROR
-        );
+          // Hàm xử lý khi click có
+          this.popup.callbackFunc.callbackWarningDeleteYes = () => {
+            // Call API xóa
+            fetchAPI(
+              materialService.deleteRecord(this.dataSelceted.materialId),
+              Resource.HTTP_METHOD.DELETE,
+              (res) => {
+                console.log(res);
+                if (res == enumMISA.response.Success) {
+                  this.customPopup();
+                  this.deleteSuccess();
+                } else {
+                  this.customPopup();
+                  this.deleteFail();
+                }
+              }
+            );
+          };
+        } else if (!this.dataSelceted && this.popup.callbackFunc) {
+          this.customPopup(
+            true,
+            `${Resource.ERROR_VALIDATE_FE.RequireChoiceMaterial}`,
+            Resource.VUE_APP_POPUP.ERROR
+          );
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
 
+    /**
+     * Gọi form mới
+     * Created: PDDang(24/5/2023)
+     * @param {*} value 
+     */
     getNewForm() {
       this.showForm = true;
       this.id = null;
       this.type = Resource.TYPE_FORM.ADD;
+    },
+
+    /**
+     * Gọi form thêm mới
+     * CreatedBy : PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    getNewFormCategory() {
+      this.showFormCategorys();
+    },
+
+    /**
+     * Gọi lại form thêm mới 
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    getNewFormStock() {
+      this.showFormStocks();
+    },
+
+    /**
+     * Gọi lại form thêm mới 
+     * CreatedBy: PDDang(24/5/2023)
+     * @param {*} value 
+     */
+    getNewFormUnit() {
+      this.showFormUnits();
     },
     /**
      * Lưu data thất bại
@@ -452,7 +624,7 @@ export default {
           Resource.VUE_APP_TOAST.ADDSUCCESS,
           Resource.ToastMessage.Success.Save
         );
-        this.reloadForm = true;
+        // this.reloadForm = true;
       } catch (err) {
         console.log(err);
       }
@@ -488,7 +660,42 @@ export default {
           Resource.VUE_APP_TOAST.ADDSUCCESS,
           Resource.ToastMessage.Success.Save
         );
+        // this.reloadForm = true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * CreateBy :PDDang(24/5/2023)
+     * Reload lại form
+     */
+    reloadFormSuccess() {
+      this.reloadForm = false;
+    },
+    saveDataSuccesAndReload() {
+      try {
         this.reloadForm = true;
+        this.customToast(
+          true,
+          Resource.VUE_APP_TOAST.ADDSUCCESS,
+          Resource.ToastMessage.Success.Save
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /**
+     * Thêm thành công kho đơn vị hoặc nhóm nguyên vật liệu thì reload
+     */
+    saveDataAndAddSuccessAndReload() {
+      try {
+        this.reloadForm = true;
+        this.customToast(
+          true,
+          Resource.VUE_APP_TOAST.ADDSUCCESS,
+          Resource.ToastMessage.Success.Save
+        );
       } catch (error) {
         console.log(error);
       }
@@ -546,7 +753,7 @@ export default {
      * @param {Boolean} isShow true- show popup, false - ẩn popup
      * @param {String} message nội dung của popup
      * @param {String} type loại popup
-     * CreatedBy: NDCHIEN (18/8/2022)
+     * CreatedBy: PDDang (24/5/2023)
      */
     customPopup(isShow = false, message = "", type = "") {
       if (this.popup) {
@@ -567,6 +774,50 @@ export default {
         console.log(error);
       }
     },
+
+    noClick() {
+      console.log("dbclick");
+    },
+
+    /**
+    * Xuất Excel danh sách nguyên vật liệu
+    * CreateBy: DangPD(24/5/2023)
+    */
+    exportFile() {
+      try {
+        this.isLoading = true;
+        fetchAPI(
+          materialService.getExcel(),
+          "POST",
+          (blob) => {
+            // Tạo đường dẫn url
+            const url = window.URL.createObjectURL(blob);
+            // Tạo phần tử chứa danh sách
+            const a = document.createElement("a");
+            a.style.display = "none";
+            a.href = url;
+            a.download = "Danh_sach_nguyen_vat_lieu.xlsx";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+            this.isLoading = false;
+          },
+          "",
+          "blob"
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * Thực hiện import file
+     */
+    importFile() {
+      this.showImprt = true;
+    },
+
   },
   created() {
     this.getPaging(this.pageSize, this.pageChoice, this.sort, this.dataFilter);
@@ -585,9 +836,8 @@ export default {
     },
     pageSize(newVal) {
       this.pageSize = newVal;
-      this.reloadTable();
-      console.log(newVal);
     },
+
   },
 };
 </script>

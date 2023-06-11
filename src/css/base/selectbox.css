@@ -14,7 +14,7 @@
     /* border: 1px solid #babec5; */
     display: block;
     width: 100%;
-    z-index: 1;
+    z-index: 20;
     max-height: 208px;
     overflow: auto;
 }
@@ -32,12 +32,12 @@
 }
 
 .select-box-hidden button:hover {
-    background-color: #edf6fd;
+    background-color: #c8dded;
     cursor: pointer;
 }
 
 .select-box-focus {
-    background-color: #edf6fd !important;
+    background-color: #c8dded !important;
 }
 
 .select-box-choice {
@@ -62,10 +62,13 @@
     border: 1px solid #0072bc;
 }
 
-.select-box-error,
-.select-box-error:focus {
+.select-box-error {
     border-color: #FF4747;
 }
+
+/* .select-box-error:focus {
+    border-color: #FF4747;
+} */
 
 .select-box-show button {
     background-color: transparent;
@@ -89,6 +92,10 @@
     outline: none;
     border: none;
     font-size: 13px;
+}
+
+.select-box-main:focus {
+    border-color: #0072bc !important;
 }
 
 /* Thông báo lỗi */
@@ -157,5 +164,13 @@
 }
 
 .hidden_border {
-    border: none;
+    border: unset;
+}
+
+.onBlurInput{
+    border: 1px solid #bbb;
+}
+
+.focus_input {
+    border: 1px solid #0072bc !important ;
 }

@@ -1,51 +1,25 @@
 const Resource = {
+  // Tiều đề
   TitleContent: {
     Material: "Nguyên vật liệu",
     MaterialCategory: "Nhóm nguyên vật liệu",
     Stock: "Kho",
     Unit: "Đơn vị tính",
   },
+  // Tên form
   TitleForm: {
     AddUnit: "Thêm đơn vị tính",
-    UpdateUnit: "Thông tin đơn vị tính",
+    UpdateUnit: "Sửa đơn vị tính",
     DuplicateUnit: "Nhân bản đơn vị tính",
     AddStock: "Thêm kho",
-    UpdateStock: "Thông tin kho",
+    UpdateStock: "Sửa kho",
     DuplicateStock: "Nhân bản kho",
     AddMaterialCategory: "Thêm nhóm nguyên vật liệu",
-    UpdateMaterialCategory: "Thông tin nhóm nguyên vật liệu",
+    UpdateMaterialCategory: "Sửa nhóm nguyên vật liệu",
     DuplicateMaterialCategory: "Nhân bản nhóm nguyên vật liệu",
     AddMaterial: "Thêm nguyên vật liệu",
-    UpdateMaterial: "Thông tin nguyên vật liệu",
+    UpdateMaterial: "Sửa nguyên vật liệu",
     DuplicateMaterial: "Nhân bản nguyên vật liệu",
-  },
-
-  Table: {
-    /* Tên chức năng */
-    Update: "Sửa",
-    Replicate: "Nhân bản",
-    Delete: "Xoá",
-    Stop: "Ngừng sử dụng",
-    RecordPerPage: " bản ghi trên 1 trang",
-    Next: "Trước",
-    Previous: "Sau",
-    Total: "Tổng số: ",
-    Record: "bản ghi",
-
-    ShowNotFoundDeleteSuccess: "Đã xóa hết bản ghi ở trang này !",
-    ShowNotFoundNull: "Không tìm thấy bản ghi nào !",
-  },
-
-  Validate: {
-    EmployeeCode: "employeeCode",
-    RegexEmployeeCode: "regexEmployeeCode",
-    MaxLengthEmployeeCode: "maxLengthEmployeeCode",
-    MaxLengthEmployeeName: "maxLengthEmployeeName",
-    FullName: "fullName",
-    CbxDepartment: "cbxDepartment",
-    DateOfBirth: "dateOfBirth",
-    IdentityDate: "identityDate",
-    Email: "email",
   },
 
   Modal: {
@@ -82,24 +56,7 @@ const Resource = {
     },
   },
 
-  ErrorMessage: {
-    EmployeeCode: "Mã nhân viên",
-    DuplicateCode: "Mã nhân viên đã tồn tại",
-    EmptyCode: "Mã nhân viên không được trống",
-    EmptyName: "Tên nhân viên không được trống",
-    EmptyDepartmentName: "Phòng ban không được trống",
-    InvalidCode: "Mã nhân viên không đúng định dạng",
-    InvalidEmail: "Email không đúng định dạng",
-    InternalServerError: "Có lỗi xảy ra, vui lòng liên hệ MISA để được hỗ trợ",
-    ValidInput:
-      "Có lỗi xảy ra khi load dữ liệu vui lòng liên hệ MISA để được hỗ trợ",
-    InvalidDateOfBirth: "Ngày sinh nhập vào lớn hơn ngày hiện tại",
-    InvalidIdentityDate: "Ngày cấp nhập vào lớn hơn ngày hiện tại",
-    MaxLengthEmployeeCode: "Mã nhân viên có độ dài hơn 20",
-    MaxLengthEmployeeName: "Tên nhân viên có độ dài hơn 100",
-    GetEmployeeCodeFail: "Lấy mã mới thất bại",
-  },
-
+  // Toást
   ToastMessage: {
     Success: {
       Delete: "Xoá bản ghi thành công",
@@ -109,30 +66,23 @@ const Resource = {
       Delete: "Xoá bản ghi thất bại",
       Save: "Lưu bản ghi thất bại",
     },
+    NotDelete: {
+      TextCategory: "Nhóm nguyên vật liệu ",
+      TextStock: "Kho ",
+      TextUnit: "Đơn vị tính ",
+      AfterText: " đã có phát sinh. Bạn không thể xóa."
+    }
   },
 
-  Tooltip: {
-    IdentityNumber: "Số Chứng Minh Nhân Dân",
-    Phone: "Điện thoại di động",
-    Fax: "Điện thoại cố định",
-    BankBranch: "Chi nhánh tài khoản ngân hàng",
-    Reload: "Tải lại dữ liệu",
-    ExportExcel: "Xuất tệp Excel",
-    SaveAndInsert: "Cất và thêm(Ctrl + Shift + S)",
-    Save: "Cất(Ctrl + S)",
-    Close: "Đóng(ESC)",
-    Help: "Giúp(F1)",
-  },
-
+  // Bàn phím
   KeyboardShortcuts: {
+    Esc: "Esc",
     SaveAndInsert: "Ctrl + Shift + S",
     Save: "Ctrl + S",
-  },
-
-  Gender: {
-    Male: "Nam",
-    Female: "Nữ",
-    Other: "Khác",
+    FirstPage: "Trang đầu",
+    PrevPage: "Trang trước",
+    NextPage: "Trang sau",
+    LastPage: "Trang cuối",
   },
 
   // Loại form
@@ -141,13 +91,6 @@ const Resource = {
     UPDATE: "update",
     DUPLICATE: "duplicate",
   },
-
-  // // Kiểu form khi update
-  // TYPE_UPDATE: {
-  //   ADD: 1,
-  //   UPDATE: 2,
-  //   DELETE: 3,
-  // },
 
   // kiểu http request
   HTTP_METHOD: {
@@ -167,10 +110,11 @@ const Resource = {
     DeleteFail: "Xóa thất bại",
   },
 
+  // Lỗi BE
   ERROR_BE: {
-    Unknow: "Lỗi không xác định. Vui lòng liên hệ MISA",
+    Unknow: "Có lỗi xảy ra vui lòng liên hệ MISA để được hỗ trợ",
     DuplicateCodeMaterial: "Trùng mã nguyên vật liệu",
-    DuplicateCodeMaterialCategory: "Trùng mã nhóm nguyên vật liệu ngầm định",
+    DuplicateCodeMaterialCategory: "Trùng mã nhóm nguyên vật liệu",
     DuplicateCodeUnit: "Trùng tên đơn vị tính",
     DuplicateCodeStock: "Trùng mã kho chuyển đổi",
     // DuplicateCode: "Bản ghi đã bị xóa hoặc không tồn tại",
@@ -178,6 +122,7 @@ const Resource = {
 
   // Danh sách lỗi validate frontend
   ERROR_VALIDATE_FE: {
+    NotEmpty: "Trường này không được bỏ trống",
     UnitNameNotEmpty: "Tên đơn vị tính không được bỏ trống",
     StockCodeNotEmpty: "Mã kho không được bỏ trống",
     StockNameNotEmpty: "Tên kho không được bỏ trống",
@@ -190,6 +135,13 @@ const Resource = {
     DuplicateUnit: "Đơn vị chuyển đổi không được trùng với đơn vị chính",
     DuplicateConversionUnitMaterial:
       "Đơn vị tính không được trùng với đơn vị chuyển đổi",
+    MaxLengthMaterialCode: "Độ dài của mã nguyên vật liệu không hợp lệ",
+    MaxLengthMaterialName: "Độ dài của tên nguyên vật liệu không hợp lệ",
+    MaxLengthMaterialCategoryCode: "Độ dài của mã nhóm nguyên vật liệu không hợp lệ",
+    MaxLengthMaterialCategoryName: "Độ dài của tên nhóm nguyên vật liệu không hợp lệ",
+    MaxLengthStockCode: "Độ dài của mã kho không hợp lệ",
+    MaxLengthStockName: "Độ dài của tên kho không hợp lệ",
+    MaxLengthUnitName: "Độ dài của tên đơn vị không hợp lệ",
     DuplicateConversionUnit: "Đơn vị chuyển đổi không được trùng nhau",
     ConversionUnitNotEmpty: "Thông tin đơn vị chuyển đổi không được bỏ trống",
     SelectMaterialDelete: "Vui lòng chọn nguyên vật liệu muốn xóa",
@@ -231,33 +183,44 @@ const Resource = {
     createdDate: "createdDate",
     modifiedBy: "modifiedBy",
     modifiedDate: "modifiedDate",
+    convertionUnitId: "convertionUnitId"
+  },
+  FIELD_MATERIALCATEGORY: {
+    categoryCode: "categoryCode",
+    categoryName: "categoryName",
   },
 
   FIELD_NAME_MATERIAL: {
     tableName: "Nguyên vật liệu",
     materialID: "Id nguyên vật liệu",
-    materialCode: "Mã nguyên vật liệu",
-    materialName: "Tên nguyên vật liệu",
+    materialCode: "Mã ",
+    materialName: "Tên",
     feature: "Tính chất",
     unitID: "Id đơn vị tính",
-    unitName: "Tên đơn vị tính",
+    unitName: "ĐVT",
     stockID: "Id kho ngầm định",
-    stockName: "Tên kho ngầm định",
-    categoryName: "Nhóm nguyên vật liệu",
+    stockName: "Kho ngầm định",
+    categoryName: "Nhóm NVL",
     valueExp: "Giá trị hạn sử dụng",
-    typeExp: "Loại hạn sử dụng",
-    inventoryNumber: "Số lượng tồn tối thiểu",
+    expiryDate: "Hạn sử dụng",
+    inventoryNumber: "SL tồn tối thiểu",
     description: "Ghi chú",
     status: "Ngừng theo dõi",
     createdBy: "Người tạo",
     createdDate: "Ngày tạo",
     modifiedBy: "Người sửa",
     modifiedDate: "Ngày sửa",
+    stt: "STT",
+    convertionUnit: "Đơn vị chuyển đổi",
+    conversionRate: "Tỷ lệ chuyển đổi",
+    calculation: "Phép tính",
+    describe: "Mô tả"
   },
 
   // Các trường của đơn vị chuyển đổi
   FIELD_CONVERSION_UNIT: {
     tableName: "conversionunit",
+    conversionUnitName: "conversionUnitName",
     stt: "stt",
     conversionUnitID: "conversionUnitID",
     materialID: "materialID",
@@ -272,39 +235,26 @@ const Resource = {
 
   // Các trường của đơn vị tính
   FIELD_UNIT: {
-    tableName: "unit",
-    conversionUnitID: "conversionUnitID",
-    conversionUnitName: "conversionUnitName",
-    createdBy: "createdBy",
-    createdDate: "createdDate",
-    modifiedBy: "modifiedBy",
-    modifiedDate: "modifiedDate",
+    unitName: "Đơn vị tính",
+    description: "Diễn giải"
   },
-
+  // Các trường của nhóm nguyên vật liệu
+  FEILD_CATEGORY: {
+    categoryCode: "Mã nhóm",
+    categoryName: "Tên nhóm",
+    description: "Diễn giải"
+  },
   // Các trường của kho ngầm định
   FIELD_STOCK: {
-    tableName: "stock",
-    stockID: "stockID",
-    stockCode: "stockCode",
-    stockName: "stockName",
-    createdBy: "createdBy",
-    createdDate: "createdDate",
-    modifiedBy: "modifiedBy",
-    modifiedDate: "modifiedDate",
+    stockCode: "Mã kho",
+    stockName: "Tên kho",
+    address: "Địa chỉ"
   },
 
   ICON_TOAST_MESSAGE: {
     success: "success",
     warning: "warning",
     error: "error",
-  },
-    //enum
-  Response: {
-    Success: 1,
-    Error: 0,
-    BadRequest: 400,
-    Exception: 500,
-    ServerError: 500
   },
 
   Nodata: "Không có dữ liệu",
@@ -328,26 +278,18 @@ const Resource = {
     ERROR: "error",
     QUESTION: "question",
   },
-    //enum
-  ERRORCODE_BE: {
-    AnKnowError: "000",
-    DuplicateCodeConversionUnit: "001",
-    DuplicateCodeMaterial: "002",
-    DuplicateCodeMaterialCategory: "003",
-    DuplicateCodeStock: "004",
-    DuplicateCodeUnit: "005",
-    Nodifine: "008",
-    NotexistOrDeleted: "009",
-    UnitNameNotEmpty: "010",
-    StockCodeNotEmpty: "011",
-    CategoryCodeNotEmpty: "012",
-    CategoryNameNotEmpty: "013",
-    ConverunitNotEmpty: "014",
-    MaterialCodeNotEmpty: "015",
-    MaterialNameNotEmpty: "016",
-    FeatureNotEmpty: "017",
-    StockNameNotEmpty: "018",
-  },
+  // Excel
+  Excel: {
+    header: "Nhập khẩu nguyên vật liệu",
+    title1: "Bước 1 : Chọn tệp nguồn",
+    title2: "Bước 2: Kiểm tra dữ liệu",
+    title3: "Bước 3 : Kết quả",
+    step1: "1. Chọn tệp nguồn",
+    step2: "2. Kiểm tra dữ liệu",
+    step3: "3. Kết quả nhập khẩu",
+    recordSuccess: "Số bản ghi thành công :",
+    recordNotSuccess: "Số bản ghi không thành công :",
+  }
 
 };
 export default Resource;
