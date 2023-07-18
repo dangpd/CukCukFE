@@ -52,8 +52,8 @@
               :class="{
                 'row-selected': dataSelceted == item,
               }">
-              <td class="text-align-left" :title="item.conversionUnitName">{{ item.conversionUnitName }}</td>
-              <td class="text-align-left" :title="item.description">{{ item.description }}</td>
+              <td class="text-align-left tooltips" style="max-width: 500px;" :title="item.conversionUnitName">{{ item.conversionUnitName }}</td>
+              <td class="text-align-left tooltips" style="max-width: 500px;" :title="item.description">{{ item.description }}</td>
               <td class="text-align-center" style="z-index: 0">
                 <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status === statusPage"
                   :value="item.status" />
@@ -582,7 +582,7 @@ export default {
     pageSize(newVal) {
       this.pageSize = newVal;
       this.reloadTable();
-      console.log(newVal);
+      // console.log(newVal);
     },
   },
 };

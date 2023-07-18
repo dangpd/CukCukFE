@@ -316,6 +316,7 @@ export default {
      */
     handleError(err) {
       try {
+        console.log(err);
         if (err.response.data.errorCode == enumMISA.response.BadRequest) {
           var listMessError = [];
           var error = err.response.data.moreInfo;
@@ -445,6 +446,9 @@ export default {
             if (res) {
               this.dataOrigin = { ...res };
               this.materialCategory = res;
+              if (this.type == Resource.TYPE_FORM.DUPLICATE) {
+                this.materialCategory.categoryCode = null;
+              }
             }
           });
         } else {

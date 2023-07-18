@@ -334,8 +334,8 @@ export default {
         this.$emit("getNewForm");
         this.title = Resource.TitleForm.AddUnit;
         this.$emit("update:type", Resource.TYPE_FORM.ADD);
-        this.unit = { ...this.dataDefault };
-        this.dataOrigin = { ...this.dataDefault };
+        this.unit = JSON.parse(JSON.stringify(this.dataDefault));
+        this.dataOrigin = JSON.parse(JSON.stringify(this.dataDefault));
         this.$refs.conversionUnitName.focusFunc();
         this.getNewForm = false;
       }
@@ -382,8 +382,12 @@ export default {
           );
           data.then((res) => {
             if (res) {
-              this.dataOrigin = { ...res };
+              console.log(res);
+              this.dataOrigin = JSON.parse(JSON.stringify(res));
               this.unit = res;
+              if(this.type == Resource.TYPE_FORM.DUPLICATE){
+                this.unit.conversionUnitName = null;
+              }
             }
           });
         } else {

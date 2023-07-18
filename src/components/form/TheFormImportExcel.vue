@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="table_import" style="margin-top: 20px;">
-                                <table border="1" style="width: 1000px;overflow-y: auto;border-collapse: collapse;">
+                                <table border="1" style="width: 1500px;overflow-y: auto;border-collapse: collapse;">
                                     <thead style="background-color: #ededed;margin-left: 20px;">
                                         <th>Mã</th>
                                         <th>Tên</th>
@@ -60,7 +60,7 @@
                                         <th>Đơn vị</th>
                                         <th>Kho ngầm định</th>
                                         <th>Ghi chú</th>
-                                        <th>Tình trạng</th>
+                                        <th style="width: 250px;">Tình trạng</th>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, index) in listMaterialExcel" :key="index">
@@ -78,10 +78,12 @@
                                                 {{ item.material.stockName }}</td>
                                             <td class="tooltips" :title="item.material.description">{{
                                                 item.material.description }}</td>
-                                            <td class="tooltips"
+                                            <td class="tooltips" style="width: 250px;"
                                                 :class="{ 'red': item.statusMaterial == duplicateCode, 'red1': item.statusMaterial == duplicateCodeConvertionUnit }"
-                                                :title="formatStatusExcel(item.statusMaterial)">{{
-                                                    formatStatusExcel(item.statusMaterial) }}</td>
+                                                :title="formatStatusExcel(item.statusMaterial, item.material.materialCode, item.material.conversionUnitName)">
+                                                {{
+                                                    formatStatusExcel(item.statusMaterial,
+                                                        item.material.materialCode, item.material.conversionUnitName) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -204,8 +206,8 @@ export default {
          * Format status Excel
          * @param {*} status 
          */
-        formatStatusExcel(status) {
-            return formatMaterialExcel(status);
+        formatStatusExcel(status, code, text) {
+            return formatMaterialExcel(status, code, text);
         },
         /**
          * Thay đổi input file
@@ -213,7 +215,24 @@ export default {
          * @param {*} event 
          */
         onFileChange(event) {
-            this.selectedFile = event.target.files[0];
+            const file = event.target.files[0];
+            // Điều kiện file dạng xls hoặc xlsx
+            const allowedExtensions = ['.xls', '.xlsx'];
+
+            if (file) {
+                // Lấy tên file
+                const fileName = file.name;
+                // Lấy tên đuôi file
+                const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+
+                if (allowedExtensions.includes(fileExtension)) {
+                    this.selectedFile = file;
+                } else {
+                    // Display an error message or handle the case when the file is not an Excel file
+                    this.customPopup(true,Resource.Excel.notFileExcel,Resource.VUE_APP_POPUP.ERROR);
+                    this.selectedFile = null;
+                }
+            }
         },
 
         /**
@@ -306,6 +325,7 @@ export default {
                     this.noRecord = true;
                     this.loadingForm = false;
                     this.customPopup(true, Resource.ERROR_BE.Unknow, Resource.VUE_APP_POPUP.ERROR);
+                    this.listMaterialExcel = [];
                 }
             }
         },
@@ -364,9 +384,9 @@ export default {
             this.step = newVal;
         },
 
-        listMaterialImport(newVal) {
-            console.log(newVal);
-        },
+        // listMaterialImport(newVal) {
+        //     console.log(newVal);
+        // },
 
     },
     computed: {

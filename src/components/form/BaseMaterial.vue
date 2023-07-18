@@ -369,7 +369,7 @@ export default {
      */
     reloadTable() {
       try {
-        this.$refs.pageNumber.pageSize = 20;
+        this.$refs.pageNumber.pageSize = this.pageSize;
         this.$refs.pageNumber.pageChoice = 1;
         // Clear text search
         this.$refs.materiCode.clearData();
@@ -535,7 +535,7 @@ export default {
               materialService.deleteRecord(this.dataSelceted.materialId),
               Resource.HTTP_METHOD.DELETE,
               (res) => {
-                console.log(res);
+                // console.log(res);
                 if (res == enumMISA.response.Success) {
                   this.customPopup();
                   this.deleteSuccess();

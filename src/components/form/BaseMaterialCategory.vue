@@ -58,9 +58,9 @@
               :class="{
                 'row-selected': dataSelceted == item,
               }">
-              <td class="text-align-left" :title="item.categoryCode">{{ item.categoryCode }}</td>
-              <td class="text-align-left" :title="item.categoryName">{{ item.categoryName }}</td>
-              <td class="text-align-left" :title="item.description">{{ item.description }}</td>
+              <td class="text-align-left tooltips" style="max-width: 300px;" :title="item.categoryCode">{{ item.categoryCode }}</td>
+              <td class="text-align-left tooltips" style="max-width: 300px;" :title="item.categoryName">{{ item.categoryName }}</td>
+              <td class="text-align-left tooltips" style="max-width: 300px;" :title="item.description">{{ item.description }}</td>
               <td class="text-align-center" style="z-index: 0">
                 <BaseCheckBox class="checkbox_table_status" disable :modelCheckbox="item.status === statusPage"
                   :value="item.status" />
@@ -344,7 +344,7 @@ export default {
     duplicateForm() {
       if (this.dataSelceted.categoryID) {
         this.showForm = true;
-        this.id = this.dataSelceted.stockId;
+        this.id = this.dataSelceted.categoryID;
         this.type = Resource.TYPE_FORM.DUPLICATE;
       }
     },
@@ -370,6 +370,7 @@ export default {
       this.id = data.categoryID;
       this.type = Resource.TYPE_FORM.UPDATE;
     },
+
     /**
      * Xóa 1 phần tử
      * CreatedBy : PDDang(24/5/2023)
@@ -425,8 +426,6 @@ export default {
       this.showForm = true;
       this.id = null;
       this.type = Resource.TYPE_FORM.ADD;
-      this.emit("update:type", Resource.TYPE_FORM.ADD);
-      this.emit("update:id", null);
     },
     /**
      * Lưu data thất bại
@@ -589,7 +588,7 @@ export default {
     pageSize(newVal) {
       this.pageSize = newVal;
       this.reloadTable();
-      console.log(newVal);
+      // console.log(newVal);
     },
   },
 };

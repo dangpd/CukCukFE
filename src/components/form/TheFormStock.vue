@@ -432,6 +432,9 @@ export default {
             if (res) {
               this.dataOrigin = { ...res };
               this.stock = res;
+              if(this.type == Resource.TYPE_FORM.DUPLICATE){
+                this.stock.stockCode = null;
+              }
             }
           });
         } else {

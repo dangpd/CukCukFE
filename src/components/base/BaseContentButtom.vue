@@ -24,7 +24,7 @@
               :notSelect="pageChoice === totalPage ? true : false" :title="LastPage" />
           </div>
           <div class="reload">
-            <BaseButtonIcon noneBg noneBorder icon="fa-solid fa-arrow-rotate-right" colorIcon="#bbb" @click="reloadAll" />
+            <BaseButtonIcon noneBg noneBorder icon="fa-solid fa-arrow-rotate-right" colorIcon="#bbb" @click="reloadAll" title="Tải lại" />
           </div>
         </div>
         <div class="number-item-on-pages">

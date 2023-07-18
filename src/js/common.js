@@ -81,44 +81,19 @@ const clickoutside = {
 };
 
 /**
- * Hàm format thời gian
- * CreateBy: DangPD
- * @param {*} datetime
- * @returns
- */
-function formatDate(datetime) {
-  try {
-    if (datetime != null && datetime != undefined) {
-      //Chuyển thành dữ liệu ngày tháng
-      datetime = new Date(datetime);
-      let date = datetime.getDate();
-      date = date < 10 ? `0${date}` : date;
-      let month = datetime.getMonth() + 1;
-      month = month < 10 ? `0${month}` : month;
-      let year = datetime.getFullYear();
-      return `${date}/${month}/${year}`;
-    } else {
-      return "";
-    }
-  } catch (error) {
-    return "";
-  }
-}
-
-/**
  * hàm format giới tính
  * CreateBy: DangPD
  * @param {*} data
  * @returns
  */
-function formatMaterialExcel(status) {
+function formatMaterialExcel(status, code, text) {
   try {
     if (status == "0") {
       return "Bản ghi hợp lệ";
     } else if (status == "1") {
-      return "Mã nguyên vật liệu đã tồn tại";
+      return `Mã nguyên vật liệu ${code} đã tồn tại`;
     } else if (status == "2") {
-      return "Đơn vị tính trùng đơn vị chuyển đổi";
+      return `Đơn vị tính ${text} trùng đơn vị chuyển đổi `;
     }
     return "";
   } catch (error) {
@@ -208,7 +183,6 @@ export {
   compareArrays,
   generateUUID,
   clickoutside,
-  formatDate,
   formatMaterialExcel,
   fetchAPI,
 };

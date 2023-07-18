@@ -449,9 +449,9 @@ export default {
     //     }
     //   }
     // },
-    tabIndex(newVal) {
-      console.log(newVal);
-    }
+    // tabIndex(newVal) {
+    //   console.log(newVal);
+    // }
   },
 
   async created() {

@@ -289,6 +289,7 @@ const Resource = {
     step3: "3. Kết quả nhập khẩu",
     recordSuccess: "Số bản ghi thành công :",
     recordNotSuccess: "Số bản ghi không thành công :",
+    notFileExcel:"File bạn nhập vào không đúng định dạng excel"
   }
 
 };

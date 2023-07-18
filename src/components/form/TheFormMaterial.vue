@@ -784,6 +784,8 @@ export default {
      * @param {*} 
      */
     saveData() {
+      // Nếu trường hợp validate lỗi backend thì giữ nguyên tỷ lệ chuyển đỏi dạng 1.000,00
+      this.dataNew = JSON.parse(JSON.stringify(this.dataForm));
       // format hạn sử dụng
       if (this.valueExp && this.typeExp) {
         this.dataForm.material.expiryDate = `${this.valueExp}_${this.typeExp}`;
@@ -1030,6 +1032,7 @@ export default {
       if (err.response.status == enumMISA.response.Exception || err.response.status == enumMISA.response.Error) {
         this.customPopup(true, Resource.ERROR_BE.Unknow, Resource.VUE_APP_POPUP.ERROR);
       }
+      this.dataForm = JSON.parse(JSON.stringify(this.dataNew));
     },
 
     /**
@@ -1272,7 +1275,7 @@ export default {
     },
 
     reloadForm(newVal) {
-      console.log(newVal);
+      // console.log(newVal);
       if (newVal == true) {
         this.getListUnit();
         this.getListCategory();
